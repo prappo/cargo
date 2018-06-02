@@ -18,6 +18,12 @@ Route::group(['middleware' => 'web'], function () {
     Route::group(['middleware' => 'auth'], function () {
 
         // auth related routes will be here
+
+        Route::get('/home','HomeController@index');
+        Route::get('/invoice','InvoiceController@index');
+
+
+        Route::get('/make/agent','CreateController@makeAgentIndex');
     });
 
 

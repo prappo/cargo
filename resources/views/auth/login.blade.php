@@ -1,10 +1,10 @@
 @extends('layouts.auth')
-@section('title', 'Login | Optimus')
+@section('title', 'Login | Cargo')
 @section('content')
 
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ url('/') }}"><img src="{{ url('images/optimus/logo-login.png') }}" alt="Optimus"><b>Optimus</b></a>
+            <a href="{{ url('/') }}"><b>Cargo</b></a>
         </div>
 
         <div class="login-box-body">
@@ -41,12 +41,10 @@
 
                 <div class="row">
 
-                    <div class="col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                    <div class="col-xs-12">
+                        <button type="submit" class="btn btn-success btn-block btn-flat"><i class="fa fa-sign-in"></i> <b>Sign In</b></button>
                     </div>
-                    <div class="col-xs-4">
-                        <a href="{{ url('/register') }}" class="btn btn-primary btn-block btn-flat">Register</a>
-                    </div>
+
                 </div>
             </form>
         </div>

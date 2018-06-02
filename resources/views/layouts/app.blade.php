@@ -46,6 +46,9 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
+
     {{--emoji --}}
     <link rel="stylesheet" href="{{url('/opt/emoji/emojionearea.min.css')}}">
     <link rel="stylesheet" href="{{url('/css/style.css')}}">
@@ -54,7 +57,7 @@
     @yield('css')
 </head>
 {{--<body class="hold-transition fixed sidebar-mini skin-red-light">--}}
-<body class="hold-transition fixed sidebar-mini @if(Auth::user()->theme == "") skin-red @else {{Auth::user()->theme}} @endif">
+<body class="hold-transition fixed sidebar-mini skin-blue">
 
 @yield('content')
 <script>
@@ -76,6 +79,7 @@
 <script src="http://cdn.datatables.net/buttons/1.2.1/js/buttons.print.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js"></script>
 <script src="{{url('/opt/intro/intro.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script type="text/javascript" src="{{url('/opt/emoji/emojionearea.min.js')}}"></script>
 
 <script type="text/javascript" src="{{url('/opt/toast.js')}}"></script>

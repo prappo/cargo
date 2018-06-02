@@ -3,13 +3,9 @@
     <a href="{{ url('/home') }}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
 
-        <span class="logo-mini"><img
-                    src="@if(Auth::user()->theme == 'skin-black' || Auth::user()->theme == 'skin-black-light') @if(\App\Http\Controllers\Settings::getSettings('logo')==""){{ url('/images/optimus/logo-login.png')}} @else {{url('/uploads')}}/{{\App\Http\Controllers\Settings::getSoftwareSettings('logo')}} @endif @else {{ url('/images/optimus/logo-mini.png') }} @endif"
-                    alt="Optimus"></span>
+        <span class="logo-mini"></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><img
-                    src="@if(Auth::user()->theme == 'skin-black' || Auth::user()->theme == 'skin-black-light') @if(\App\Http\Controllers\Settings::getSettings('logo')=="") {{ url('/images/optimus/logo-login.png')}} @else {{url('/uploads')}}/{{\App\Http\Controllers\Settings::getSoftwareSettings('logo')}} @endif @else {{ url('/images/optimus/logo-mini.png') }} @endif"
-                    alt="Optimus"><b>Optimus</b></span>
+        <span class="logo-lg"><b>Cargo</b></span>
     </a>
 
     <!-- Header Navbar: style can be found in header.less -->
@@ -82,80 +78,7 @@
 
             {{--</li>--}}
             <!-- Messages: style can be found in dropdown.less-->
-                <li class="dropdown messages-menu">
 
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-envelope-o"></i>
-                        <span class="label label-success">{{ \App\Notify::where('type','message')->where('userId',Auth::user()->id)->count() }}</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">You
-                            have {{ \App\Notify::where('type','message')->where('userId',Auth::user()->id)->count() }}
-                            messages
-                        </li>
-                        <li>
-                            <!-- inner menu: contains the actual data -->
-                            <ul class="menu">
-                                @foreach(\App\Notify::where('type','message')->where('userId',Auth::user()->id)->get() as $msg)
-                                    <li><!-- start message -->
-                                        <a target="_blank" href="{{$msg->url}}">
-                                            <div class="pull-left">
-                                                <img src="{{ url($msg->img) }}"
-                                                     class="img-circle"
-                                                     alt="User Image">
-                                            </div>
-                                            <h4>
-                                                {{$msg->title}}
-                                                <small><i class="fa fa-clock-o"></i></small>
-                                            </h4>
-                                            <p>{{$msg->body}}</p>
-                                        </a>
-                                    </li>
-
-                            @endforeach  <!-- end message -->
-                                <li>
-                            </ul>
-                        </li>
-                        <li class="footer"><a href="{{ url('/notify') }}">{{trans('navigation.See All Messages')}}</a></li>
-                    </ul>
-                </li>
-                <!-- Notifications: style can be found in dropdown.less -->
-                <li class="dropdown messages-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning">{{ \App\Notify::where('type','fbnotify')->where('userId',Auth::user()->id)->count() }}</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">You
-                            have {{ \App\Notify::where('type','fbnotify')->where('userId',Auth::user()->id)->count() }}
-                            messages
-                        </li>
-                        <li>
-                            <!-- inner menu: contains the actual data -->
-                            <ul class="menu">
-                                @foreach(\App\Notify::where('type','fbnotify')->where('userId',Auth::user()->id)->get() as $msg)
-                                    <li><!-- start message -->
-                                        <a target="_blank" href="{{$msg->url}}">
-                                            <div class="pull-left">
-                                                <img src="{{ url($msg->img) }}"
-                                                     class="img-circle"
-                                                     alt="User Image">
-                                            </div>
-                                            <h4>
-                                                {{ $msg->title }}
-                                                <small><i class="fa fa-clock-o"></i></small>
-                                            </h4>
-                                            <p>{{ $msg->body }}</p>
-                                        </a>
-                                    </li>
-
-                            @endforeach  <!-- end message -->
-                                <li>
-                            </ul>
-                        </li>
-                        <li class="footer"><a href="{{ url('/notify') }}">{{trans('navigation.See All Notifications')}}</a></li>
-                    </ul>
-                </li>
 
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
