@@ -6,33 +6,62 @@ use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     public function addUserIndex()
     {
-        return view('user.addUser');
+        if (Auth::user()->type == "admin" || Auth::user()->type == "reseller") {
+            return view('user.addUser');
+        } else {
+            return "Permission denied";
+        }
+
+
     }
 
     public function createUser(Request $request)
     {
+        if ($request->name == "") {
+            return "You must enter email Name";
+        }
+        if ($request->email == "") {
+            return "You must enter email address";
+        }
+        if ($request->password == "") {
+            return "You must enter password";
+        }
+
+
         if (User::where('email', $request->email)->exists()) {
             return "Email already exists";
         }
+
+
         try {
-            User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => bcrypt($request->password),
-                'type' => $request->type
-            ]);
+
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->country = $request->country;
+            $user->nationality = $request->nationality;
+            $user->city = $request->city;
+            $user->phone = $request->phone;
+            $user->companyName = $request->companyName;
+            $user->companyAddress = $request->companyAddress;
+            $user->type = $request->type;
+            $user->ref = Auth::user()->id;
+            $user->save();
+
             return "success";
         } catch (\Exception $exception) {
             return $exception->getMessage();
         }
     }
 
-    public function updateUser(Request $request)
+    public function updateProfile(Request $request)
     {
 
         if ($request->name == "" || $request->email == "") {
@@ -67,19 +96,60 @@ class UserController extends Controller
     }
 
 
-    public function deleteUser(Request $request){
-        try{
-            User::where('id',$request->id)->delete();
+    public function deleteUser(Request $request)
+    {
+        try {
+            User::where('id', $request->id)->delete();
             return "success";
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return $exception->getMessage();
         }
     }
 
-    public function updateInformation(){
-
+    public function updateInformationIndex($userId)
+    {
+        return view('user.updateUser', compact('userId'));
     }
 
+    public function updateInformation(Request $request)
+    {
+
+        try {
+            if ($request->password == "") {
+                User::where('id', $request->userId)->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'country' => $request->country,
+                    'nationality' => $request->nationality,
+                    'city' => $request->city,
+                    'phone' => $request->phone,
+                    'companyName' => $request->companyName,
+                    'companyAddress' => $request->companyAddress,
+                    'type' => $request->type
+                ]);
+                return "success";
+            } else {
+                User::where('id', $request->userId)->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => bcrypt($request->password),
+                    'country' => $request->country,
+                    'nationality' => $request->nationality,
+                    'city' => $request->city,
+                    'phone' => $request->phone,
+                    'companyName' => $request->companyName,
+                    'companyAddress' => $request->companyAddress,
+                    'type' => $request->type
+                ]);
+                return "success";
+            }
+
+
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
+        }
+
+    }
 
 
 }

@@ -10,8 +10,8 @@
 </head>
 <body>
 <div style="padding: 200px" align="center">
-    <h1>404 </h1>
-    <h2>Page not found</h2>
+    <h1>Permission denied </h1>
+    <h2></h2>
 </div>
 
 </body>

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Make Agent')
+@section('title','Add User')
 
 @section('content')
     <div class="wrapper">
@@ -14,13 +14,11 @@
 
                 <div class="box box-default">
                     <div class="box-header with-border">
-                        <h3 class="box-title"><i class="fa fa-plus-circle"></i> Make New Agent</h3>
+                        <h3 class="box-title"><i class="fa fa-plus-circle"></i> Update User</h3>
 
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
                                         class="fa fa-minus"></i></button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i
-                                        class="fa fa-remove"></i></button>
                         </div>
                     </div>
                     <!-- /.box-header -->
@@ -29,13 +27,31 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label><i class="fa fa-user"></i> Name</label>
-                                    <input class="form-control" type="text" id="name" placeholder="Enter Agent Name">
+                                    <input class="form-control" type="text" id="name"
+                                           value="{{\App\User::where('id',$userId)->value('name')}}"
+                                           placeholder="Enter Agent Name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label><i class="fa fa-envelope"></i> Email</label>
+                                    <input value="{{\App\User::where('id',$userId)->value('email')}}"
+                                           class="form-control" type="email" id="email"
+                                           placeholder="Enter Email Address">
+                                </div>
+
+                                <div class="form-group">
+                                    <label><i class="fa fa-key"></i> Password</label>
+                                    <input class="form-control" type="password" id="password"
+                                           placeholder="Enter Email Address">
                                 </div>
 
                                 <div class="form-group">
                                     <label><i class="fa fa-credit-card"></i> Country</label>
-                                    <select class="form-control select2" style="width: 100%;">
-
+                                    <select id="country" class="form-control select2" style="width: 100%;">
+                                        @if(\App\User::where('id',$userId)->value('country') != "")
+                                            <option value="{{\App\User::where('id',$userId)->value('country')}}"
+                                                    selected>{{\App\User::where('id',$userId)->value('country')}}
+                                            </option> @endif
                                         <option value="United States">United States</option>
                                         <option value="United Kingdom">United Kingdom</option>
                                         <option value="Afghanistan">Afghanistan</option>
@@ -55,7 +71,7 @@
                                         <option value="Azerbaijan">Azerbaijan</option>
                                         <option value="Bahamas">Bahamas</option>
                                         <option value="Bahrain">Bahrain</option>
-                                        <option selected value="Bangladesh">Bangladesh</option>
+                                        <option value="Bangladesh">Bangladesh</option>
                                         <option value="Barbados">Barbados</option>
                                         <option value="Belarus">Belarus</option>
                                         <option value="Belgium">Belgium</option>
@@ -68,7 +84,8 @@
                                         <option value="Botswana">Botswana</option>
                                         <option value="Bouvet Island">Bouvet Island</option>
                                         <option value="Brazil">Brazil</option>
-                                        <option value="British Indian Ocean Territory">British Indian Ocean Territory</option>
+                                        <option value="British Indian Ocean Territory">British Indian Ocean Territory
+                                        </option>
                                         <option value="Brunei Darussalam">Brunei Darussalam</option>
                                         <option value="Bulgaria">Bulgaria</option>
                                         <option value="Burkina Faso">Burkina Faso</option>
@@ -87,7 +104,9 @@
                                         <option value="Colombia">Colombia</option>
                                         <option value="Comoros">Comoros</option>
                                         <option value="Congo">Congo</option>
-                                        <option value="Congo, The Democratic Republic of The">Congo, The Democratic Republic of The</option>
+                                        <option value="Congo, The Democratic Republic of The">Congo, The Democratic
+                                            Republic of The
+                                        </option>
                                         <option value="Cook Islands">Cook Islands</option>
                                         <option value="Costa Rica">Costa Rica</option>
                                         <option value="Cote D'ivoire">Cote D'ivoire</option>
@@ -130,8 +149,11 @@
                                         <option value="Guinea-bissau">Guinea-bissau</option>
                                         <option value="Guyana">Guyana</option>
                                         <option value="Haiti">Haiti</option>
-                                        <option value="Heard Island and Mcdonald Islands">Heard Island and Mcdonald Islands</option>
-                                        <option value="Holy See (Vatican City State)">Holy See (Vatican City State)</option>
+                                        <option value="Heard Island and Mcdonald Islands">Heard Island and Mcdonald
+                                            Islands
+                                        </option>
+                                        <option value="Holy See (Vatican City State)">Holy See (Vatican City State)
+                                        </option>
                                         <option value="Honduras">Honduras</option>
                                         <option value="Hong Kong">Hong Kong</option>
                                         <option value="Hungary">Hungary</option>
@@ -149,11 +171,15 @@
                                         <option value="Kazakhstan">Kazakhstan</option>
                                         <option value="Kenya">Kenya</option>
                                         <option value="Kiribati">Kiribati</option>
-                                        <option value="Korea, Democratic People's Republic of">Korea, Democratic People's Republic of</option>
+                                        <option value="Korea, Democratic People's Republic of">Korea, Democratic
+                                            People's Republic of
+                                        </option>
                                         <option value="Korea, Republic of">Korea, Republic of</option>
                                         <option value="Kuwait">Kuwait</option>
                                         <option value="Kyrgyzstan">Kyrgyzstan</option>
-                                        <option value="Lao People's Democratic Republic">Lao People's Democratic Republic</option>
+                                        <option value="Lao People's Democratic Republic">Lao People's Democratic
+                                            Republic
+                                        </option>
                                         <option value="Latvia">Latvia</option>
                                         <option value="Lebanon">Lebanon</option>
                                         <option value="Lesotho">Lesotho</option>
@@ -163,7 +189,9 @@
                                         <option value="Lithuania">Lithuania</option>
                                         <option value="Luxembourg">Luxembourg</option>
                                         <option value="Macao">Macao</option>
-                                        <option value="Macedonia, The Former Yugoslav Republic of">Macedonia, The Former Yugoslav Republic of</option>
+                                        <option value="Macedonia, The Former Yugoslav Republic of">Macedonia, The Former
+                                            Yugoslav Republic of
+                                        </option>
                                         <option value="Madagascar">Madagascar</option>
                                         <option value="Malawi">Malawi</option>
                                         <option value="Malaysia">Malaysia</option>
@@ -176,7 +204,9 @@
                                         <option value="Mauritius">Mauritius</option>
                                         <option value="Mayotte">Mayotte</option>
                                         <option value="Mexico">Mexico</option>
-                                        <option value="Micronesia, Federated States of">Micronesia, Federated States of</option>
+                                        <option value="Micronesia, Federated States of">Micronesia, Federated States
+                                            of
+                                        </option>
                                         <option value="Moldova, Republic of">Moldova, Republic of</option>
                                         <option value="Monaco">Monaco</option>
                                         <option value="Mongolia">Mongolia</option>
@@ -201,7 +231,9 @@
                                         <option value="Oman">Oman</option>
                                         <option value="Pakistan">Pakistan</option>
                                         <option value="Palau">Palau</option>
-                                        <option value="Palestinian Territory, Occupied">Palestinian Territory, Occupied</option>
+                                        <option value="Palestinian Territory, Occupied">Palestinian Territory,
+                                            Occupied
+                                        </option>
                                         <option value="Panama">Panama</option>
                                         <option value="Papua New Guinea">Papua New Guinea</option>
                                         <option value="Paraguay">Paraguay</option>
@@ -220,7 +252,9 @@
                                         <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
                                         <option value="Saint Lucia">Saint Lucia</option>
                                         <option value="Saint Pierre and Miquelon">Saint Pierre and Miquelon</option>
-                                        <option value="Saint Vincent and The Grenadines">Saint Vincent and The Grenadines</option>
+                                        <option value="Saint Vincent and The Grenadines">Saint Vincent and The
+                                            Grenadines
+                                        </option>
                                         <option value="Samoa">Samoa</option>
                                         <option value="San Marino">San Marino</option>
                                         <option value="Sao Tome and Principe">Sao Tome and Principe</option>
@@ -235,7 +269,9 @@
                                         <option value="Solomon Islands">Solomon Islands</option>
                                         <option value="Somalia">Somalia</option>
                                         <option value="South Africa">South Africa</option>
-                                        <option value="South Georgia and The South Sandwich Islands">South Georgia and The South Sandwich Islands</option>
+                                        <option value="South Georgia and The South Sandwich Islands">South Georgia and
+                                            The South Sandwich Islands
+                                        </option>
                                         <option value="Spain">Spain</option>
                                         <option value="Sri Lanka">Sri Lanka</option>
                                         <option value="Sudan">Sudan</option>
@@ -247,7 +283,8 @@
                                         <option value="Syrian Arab Republic">Syrian Arab Republic</option>
                                         <option value="Taiwan, Province of China">Taiwan, Province of China</option>
                                         <option value="Tajikistan">Tajikistan</option>
-                                        <option value="Tanzania, United Republic of">Tanzania, United Republic of</option>
+                                        <option value="Tanzania, United Republic of">Tanzania, United Republic of
+                                        </option>
                                         <option value="Thailand">Thailand</option>
                                         <option value="Timor-leste">Timor-leste</option>
                                         <option value="Togo">Togo</option>
@@ -264,7 +301,9 @@
                                         <option value="United Arab Emirates">United Arab Emirates</option>
                                         <option value="United Kingdom">United Kingdom</option>
                                         <option value="United States">United States</option>
-                                        <option value="United States Minor Outlying Islands">United States Minor Outlying Islands</option>
+                                        <option value="United States Minor Outlying Islands">United States Minor
+                                            Outlying Islands
+                                        </option>
                                         <option value="Uruguay">Uruguay</option>
                                         <option value="Uzbekistan">Uzbekistan</option>
                                         <option value="Vanuatu">Vanuatu</option>
@@ -282,12 +321,9 @@
 
                                 <div class="form-group">
                                     <label><i class="fa fa-home"></i> Company Name</label>
-                                    <input class="form-control" type="text" id="name" placeholder="Enter Company Name">
-                                </div>
-
-                                <div class="form-group">
-                                    <label><i class="fa fa-home"></i> Company Address</label>
-                                    <input class="form-control" type="text" id="name" placeholder="Enter Company Address">
+                                    <input value="{{\App\User::where('id',$userId)->value('companyName')}}"
+                                           class="form-control" type="text" id="companyName"
+                                           placeholder="Enter Company Name">
                                 </div>
 
 
@@ -295,10 +331,24 @@
                             </div>
 
                             <div class="col-md-6">
+
+
+                                <div class="form-group">
+                                    <label><i class="fa fa-home"></i> Company Address</label>
+                                    <input value="{{\App\User::where('id',$userId)->value('companyAddress')}}"
+                                           class="form-control" type="text" id="companyAddress"
+                                           placeholder="Enter Company Address">
+                                </div>
+
+
                                 <div class="form-group">
                                     <label><i class="fa fa-credit-card"></i> Nationality</label>
-                                    <select class="form-control select2" style="width: 100%;">
-
+                                    <select id="nationality" class="form-control select2" style="width: 100%;">
+                                        @if(\App\User::where('id',$userId)->value('country') != "")
+                                            <option value="{{\App\User::where('id',$userId)->value('country')}}"
+                                                    selected>{{\App\User::where('id',$userId)->value('country')}}
+                                            </option>
+                                        @endif
                                         <option value="United States">United States</option>
                                         <option value="United Kingdom">United Kingdom</option>
                                         <option value="Afghanistan">Afghanistan</option>
@@ -318,7 +368,7 @@
                                         <option value="Azerbaijan">Azerbaijan</option>
                                         <option value="Bahamas">Bahamas</option>
                                         <option value="Bahrain">Bahrain</option>
-                                        <option selected value="Bangladesh">Bangladesh</option>
+                                        <option value="Bangladesh">Bangladesh</option>
                                         <option value="Barbados">Barbados</option>
                                         <option value="Belarus">Belarus</option>
                                         <option value="Belgium">Belgium</option>
@@ -331,7 +381,8 @@
                                         <option value="Botswana">Botswana</option>
                                         <option value="Bouvet Island">Bouvet Island</option>
                                         <option value="Brazil">Brazil</option>
-                                        <option value="British Indian Ocean Territory">British Indian Ocean Territory</option>
+                                        <option value="British Indian Ocean Territory">British Indian Ocean Territory
+                                        </option>
                                         <option value="Brunei Darussalam">Brunei Darussalam</option>
                                         <option value="Bulgaria">Bulgaria</option>
                                         <option value="Burkina Faso">Burkina Faso</option>
@@ -350,7 +401,9 @@
                                         <option value="Colombia">Colombia</option>
                                         <option value="Comoros">Comoros</option>
                                         <option value="Congo">Congo</option>
-                                        <option value="Congo, The Democratic Republic of The">Congo, The Democratic Republic of The</option>
+                                        <option value="Congo, The Democratic Republic of The">Congo, The Democratic
+                                            Republic of The
+                                        </option>
                                         <option value="Cook Islands">Cook Islands</option>
                                         <option value="Costa Rica">Costa Rica</option>
                                         <option value="Cote D'ivoire">Cote D'ivoire</option>
@@ -393,8 +446,11 @@
                                         <option value="Guinea-bissau">Guinea-bissau</option>
                                         <option value="Guyana">Guyana</option>
                                         <option value="Haiti">Haiti</option>
-                                        <option value="Heard Island and Mcdonald Islands">Heard Island and Mcdonald Islands</option>
-                                        <option value="Holy See (Vatican City State)">Holy See (Vatican City State)</option>
+                                        <option value="Heard Island and Mcdonald Islands">Heard Island and Mcdonald
+                                            Islands
+                                        </option>
+                                        <option value="Holy See (Vatican City State)">Holy See (Vatican City State)
+                                        </option>
                                         <option value="Honduras">Honduras</option>
                                         <option value="Hong Kong">Hong Kong</option>
                                         <option value="Hungary">Hungary</option>
@@ -412,11 +468,15 @@
                                         <option value="Kazakhstan">Kazakhstan</option>
                                         <option value="Kenya">Kenya</option>
                                         <option value="Kiribati">Kiribati</option>
-                                        <option value="Korea, Democratic People's Republic of">Korea, Democratic People's Republic of</option>
+                                        <option value="Korea, Democratic People's Republic of">Korea, Democratic
+                                            People's Republic of
+                                        </option>
                                         <option value="Korea, Republic of">Korea, Republic of</option>
                                         <option value="Kuwait">Kuwait</option>
                                         <option value="Kyrgyzstan">Kyrgyzstan</option>
-                                        <option value="Lao People's Democratic Republic">Lao People's Democratic Republic</option>
+                                        <option value="Lao People's Democratic Republic">Lao People's Democratic
+                                            Republic
+                                        </option>
                                         <option value="Latvia">Latvia</option>
                                         <option value="Lebanon">Lebanon</option>
                                         <option value="Lesotho">Lesotho</option>
@@ -426,7 +486,9 @@
                                         <option value="Lithuania">Lithuania</option>
                                         <option value="Luxembourg">Luxembourg</option>
                                         <option value="Macao">Macao</option>
-                                        <option value="Macedonia, The Former Yugoslav Republic of">Macedonia, The Former Yugoslav Republic of</option>
+                                        <option value="Macedonia, The Former Yugoslav Republic of">Macedonia, The Former
+                                            Yugoslav Republic of
+                                        </option>
                                         <option value="Madagascar">Madagascar</option>
                                         <option value="Malawi">Malawi</option>
                                         <option value="Malaysia">Malaysia</option>
@@ -439,7 +501,9 @@
                                         <option value="Mauritius">Mauritius</option>
                                         <option value="Mayotte">Mayotte</option>
                                         <option value="Mexico">Mexico</option>
-                                        <option value="Micronesia, Federated States of">Micronesia, Federated States of</option>
+                                        <option value="Micronesia, Federated States of">Micronesia, Federated States
+                                            of
+                                        </option>
                                         <option value="Moldova, Republic of">Moldova, Republic of</option>
                                         <option value="Monaco">Monaco</option>
                                         <option value="Mongolia">Mongolia</option>
@@ -464,7 +528,9 @@
                                         <option value="Oman">Oman</option>
                                         <option value="Pakistan">Pakistan</option>
                                         <option value="Palau">Palau</option>
-                                        <option value="Palestinian Territory, Occupied">Palestinian Territory, Occupied</option>
+                                        <option value="Palestinian Territory, Occupied">Palestinian Territory,
+                                            Occupied
+                                        </option>
                                         <option value="Panama">Panama</option>
                                         <option value="Papua New Guinea">Papua New Guinea</option>
                                         <option value="Paraguay">Paraguay</option>
@@ -483,7 +549,9 @@
                                         <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
                                         <option value="Saint Lucia">Saint Lucia</option>
                                         <option value="Saint Pierre and Miquelon">Saint Pierre and Miquelon</option>
-                                        <option value="Saint Vincent and The Grenadines">Saint Vincent and The Grenadines</option>
+                                        <option value="Saint Vincent and The Grenadines">Saint Vincent and The
+                                            Grenadines
+                                        </option>
                                         <option value="Samoa">Samoa</option>
                                         <option value="San Marino">San Marino</option>
                                         <option value="Sao Tome and Principe">Sao Tome and Principe</option>
@@ -498,7 +566,9 @@
                                         <option value="Solomon Islands">Solomon Islands</option>
                                         <option value="Somalia">Somalia</option>
                                         <option value="South Africa">South Africa</option>
-                                        <option value="South Georgia and The South Sandwich Islands">South Georgia and The South Sandwich Islands</option>
+                                        <option value="South Georgia and The South Sandwich Islands">South Georgia and
+                                            The South Sandwich Islands
+                                        </option>
                                         <option value="Spain">Spain</option>
                                         <option value="Sri Lanka">Sri Lanka</option>
                                         <option value="Sudan">Sudan</option>
@@ -510,7 +580,8 @@
                                         <option value="Syrian Arab Republic">Syrian Arab Republic</option>
                                         <option value="Taiwan, Province of China">Taiwan, Province of China</option>
                                         <option value="Tajikistan">Tajikistan</option>
-                                        <option value="Tanzania, United Republic of">Tanzania, United Republic of</option>
+                                        <option value="Tanzania, United Republic of">Tanzania, United Republic of
+                                        </option>
                                         <option value="Thailand">Thailand</option>
                                         <option value="Timor-leste">Timor-leste</option>
                                         <option value="Togo">Togo</option>
@@ -527,7 +598,9 @@
                                         <option value="United Arab Emirates">United Arab Emirates</option>
                                         <option value="United Kingdom">United Kingdom</option>
                                         <option value="United States">United States</option>
-                                        <option value="United States Minor Outlying Islands">United States Minor Outlying Islands</option>
+                                        <option value="United States Minor Outlying Islands">United States Minor
+                                            Outlying Islands
+                                        </option>
                                         <option value="Uruguay">Uruguay</option>
                                         <option value="Uzbekistan">Uzbekistan</option>
                                         <option value="Vanuatu">Vanuatu</option>
@@ -545,17 +618,15 @@
 
                                 <div class="form-group">
                                     <label><i class="fa fa-map"></i> City</label>
-                                    <input class="form-control" type="text" id="name" placeholder="Enter City Name">
+                                    <input value="{{\App\User::where('id',$userId)->value('city')}}"
+                                           class="form-control" type="text" id="city" placeholder="Enter City Name">
                                 </div>
                                 <div class="form-group">
                                     <label><i class="fa fa-phone"></i> Phone</label>
-                                    <input class="form-control" type="text" id="name" placeholder="Enter Phone Number">
+                                    <input value="{{\App\User::where('id',$userId)->value('phone')}}"
+                                           class="form-control" type="text" id="phone" placeholder="Enter Phone Number">
                                 </div>
 
-                                <div class="form-group">
-                                    <label><i class="fa fa-envelope"></i> Email</label>
-                                    <input class="form-control" type="text" id="name" placeholder="Enter Email Address">
-                                </div>
                             </div>
                             <!-- /.col -->
                             <!-- /.col -->
@@ -564,8 +635,11 @@
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">
-                    <div class="col-md-6"></div>
-                    <div class="col-md-6"><button class="btn btn-block btn-success"><i class="fa fa-edit"></i> Register</button> </div>
+                        <div class="col-md-6"></div>
+                        <div class="col-md-6">
+                            <button id="update" class="btn btn-block btn-success"><i class="fa fa-save"></i> Update
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -579,7 +653,64 @@
 
 @section('js')
 
-<script>
-    $('.select2').select2();
-</script>
+    <script>
+        $('.select2').select2();
+
+        $('#update').click(function () {
+
+
+            $.ajax({
+                url: '{{url('/user/update')}}',
+                type: 'POST',
+                data: {
+                    'name': $('#name').val(),
+                    'email': $('#email').val(),
+                    'password': $('#password').val(),
+                    'country': $('#country').val(),
+                    'nationality': $('#nationality').val(),
+                    'city': $('#city').val(),
+                    'phone': $('#phone').val(),
+                    'companyName': $('#companyName').val(),
+                    'companyAddress': $('#companyAddress').val(),
+                    'type': $('#type').val(),
+                    'userId':"{{$userId}}"
+                },
+                success: function (data) {
+                    if (data == "success") {
+                        swal("Success", "User Information updated Successfully", "success");
+
+                        setTimeout(function () {
+                            location.reload();
+                        }, 2000);
+
+                    }
+                    else {
+                        swal("Warning!", data, "warning");
+                    }
+                },
+                error: function (data) {
+                    alert("Something went wrong");
+                    console.log(data.responseText);
+                }
+            })
+        });
+
+    </script>
 @endsection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

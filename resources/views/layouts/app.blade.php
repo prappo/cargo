@@ -53,7 +53,12 @@
     <link rel="stylesheet" href="{{url('/opt/emoji/emojionearea.min.css')}}">
     <link rel="stylesheet" href="{{url('/css/style.css')}}">
     <link rel="stylesheet" href="{{url('/css/custome.css')}}">
-
+    <style>
+        li>a{
+            font-size: 18px;
+            font-weight: 600;
+        }
+    </style>
     @yield('css')
 </head>
 {{--<body class="hold-transition fixed sidebar-mini skin-red-light">--}}

@@ -23,7 +23,10 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/invoice','InvoiceController@index');
 
 
-        Route::get('/make/agent','CreateController@makeAgentIndex');
+        Route::get('/user/add','UserController@addUserIndex');
+        Route::post('/user/add','UserController@createUser');
+        Route::post('/user/update','UserController@updateInformation');
+        Route::get('/user/{userId}/update','UserController@updateInformationIndex');
     });
 
 

@@ -21,156 +21,60 @@
 
             {{--admin menu--}}
             @if(Auth::user()->type == 'admin')
-                <li class="treeview @if(Request::is('admin') || Request::is('user/add') || Request::is('user/list') || Request::is('admin/options')) active @endif">
-                    <a href="#">
-                        <i class="fa fa-th"></i>
-                        <span>{{trans('sidebar.Admin Panel')}}</span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
 
-                    <ul class="treeview-menu @if(Request::is('admin') || Request::is('user/add') || Request::is('user/list') || Request::is('admin/options')) menu-open @endif" style="display: @if(Request::is('admin') || Request::is('user/add') || Request::is('user/list') || Request::is('admin/options')) block @else none @endif">
-                        <li @if(Request::is('admin')) class="active" @endif><a href="{{ url('/admin') }}"><i class="fa fa-dashboard"></i>
-                                <span>{{trans('sidebar.Admin Dashboard')}}</span></a></li>
-                        <li @if(Request::is('user/add')) class="active" @endif><a href="{{ url('/user/add') }}"><i class="fa fa-plus-circle"></i>
-                                <span>{{trans('sidebar.Add User')}}</span></a>
-                        </li>
-                        <li @if(Request::is('user/list')) class="active" @endif><a href="{{ url('/user/list') }}"><i class="fa fa-users"></i>
-                                <span>{{trans('sidebar.Users')}}</span></a></li>
-                        <li @if(Request::is('admin/options')) class="active" @endif><a href="{{ url('/admin/options') }}"><i class="fa fa-key"></i>
-                                <span>{{trans('sidebar.Admin Options')}}</span></a></li>
-
-
-
-                    </ul>
-                </li>
 
             @endif
 
             <li @if(Request::is('home')) class="active" @endif ><a href="{{ url('/home') }}"><i class="fa fa-home"></i>
                     <span>Home</span></a></li>
 
-            <li @if(Request::is('invoice')) class="active" @endif ><a href="{{ url('/invoice') }}"><i class="fa fa-files-o"></i>
+            <li @if(Request::is('invoice')) class="active" @endif ><a href="{{ url('/invoice') }}"><i
+                            class="fa fa-files-o"></i>
                     <span>Invoice</span></a></li>
 
 
-            <li class="treeview @if(Request::is('make/agent') || Request::is('make/reseller') || Request::is('make/bd/user')) active @endif">
-                <a href="#">
-                    <i class="fa fa-plus-circle"></i>
-                    <span>Create</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
 
-                <ul class="treeview-menu @if(Request::is('make/agent') || Request::is('make/reseller') || Request::is('make/bd/user') || Request::is('admin/options')) menu-open @endif" style="display: @if(Request::is('make/agent') || Request::is('make/reseller') || Request::is('make/bd/user') || Request::is('admin/options')) block @else none @endif">
-                    <li @if(Request::is('make/agent')) class="active" @endif><a href="{{ url('/make/agent') }}"><i class="fa fa-user"></i>
-                            <span> Make Agent</span></a></li>
 
-                    <li @if(Request::is('make/reseller')) class="active" @endif><a href="{{ url('/make/reseller') }}"><i class="fa fa-user-secret"></i>
-                            <span> Make Reseller</span></a></li>
+            <li @if(Request::is('user/add')) class="active" @endif ><a href="{{ url('/user/add') }}"><i
+                            class="fa fa-user-plus"></i>
+                    <span>Create User</span></a></li>
 
-                    <li @if(Request::is('make/bd/user')) class="active" @endif><a href="{{ url('/make/bd/user') }}"><i class="fa fa-user-plus"></i>
-                            <span> Make BD User</span></a></li>
+            <li @if(Request::is('user/list')) class="active" @endif ><a href="{{ url('/user/list') }}"><i
+                            class="fa fa-users"></i>
+                    <span>Users</span></a></li>
 
 
 
-                </ul>
-            </li>
-
-            <li class="treeview @if(Request::is('user/add') || Request::is('user/list') || Request::is('admin/options')) active @endif">
-                <a href="#">
-                    <i class="fa fa-edit"></i>
-                    <span>Edit</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-
-                <ul class="treeview-menu @if(Request::is('make/agent') || Request::is('make/reseller') || Request::is('make/bd/user') || Request::is('admin/options')) menu-open @endif" style="display: @if(Request::is('admin') || Request::is('user/add') || Request::is('user/list') || Request::is('admin/options')) block @else none @endif">
-                    <li @if(Request::is('make/agent')) class="active" @endif><a href="{{ url('/make/agent') }}"><i class="fa fa-user"></i>
-                            <span> Make Agent</span></a></li>
-
-                    <li @if(Request::is('make/reseller')) class="active" @endif><a href="{{ url('/make/reseller') }}"><i class="fa fa-user-secret"></i>
-                            <span> Make Reseller</span></a></li>
-
-                    <li @if(Request::is('make/bd/user')) class="active" @endif><a href="{{ url('/make/bd/user') }}"><i class="fa fa-user-plus"></i>
-                            <span> Make BD User</span></a></li>
-
-
-
-                </ul>
-            </li>
-
-            <li class="treeview @if(Request::is('user/add') || Request::is('user/list') || Request::is('admin/options')) active @endif">
-                <a href="#">
-                    <i class="fa fa-times"></i>
-                    <span>Delete</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-
-                <ul class="treeview-menu @if(Request::is('make/agent') || Request::is('make/reseller') || Request::is('make/bd/user') || Request::is('admin/options')) menu-open @endif" style="display: @if(Request::is('admin') || Request::is('user/add') || Request::is('user/list') || Request::is('admin/options')) block @else none @endif">
-                    <li @if(Request::is('make/agent')) class="active" @endif><a href="{{ url('/make/agent') }}"><i class="fa fa-user"></i>
-                            <span> Make Agent</span></a></li>
-
-                    <li @if(Request::is('make/reseller')) class="active" @endif><a href="{{ url('/make/reseller') }}"><i class="fa fa-user-secret"></i>
-                            <span> Make Reseller</span></a></li>
-
-                    <li @if(Request::is('make/bd/user')) class="active" @endif><a href="{{ url('/make/bd/user') }}"><i class="fa fa-user-plus"></i>
-                            <span> Make BD User</span></a></li>
-
-
-
-                </ul>
-            </li>
-
-            <li class="treeview @if(Request::is('user/add') || Request::is('user/list') || Request::is('admin/options')) active @endif">
-                <a href="#">
-                    <i class="fa fa-list"></i>
-                    <span>View</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-
-                <ul class="treeview-menu @if(Request::is('make/agent') || Request::is('make/reseller') || Request::is('make/bd/user') || Request::is('admin/options')) menu-open @endif" style="display: @if(Request::is('admin') || Request::is('user/add') || Request::is('user/list') || Request::is('admin/options')) block @else none @endif">
-                    <li @if(Request::is('make/agent')) class="active" @endif><a href="{{ url('/make/agent') }}"><i class="fa fa-user"></i>
-                            <span> Make Agent</span></a></li>
-
-                    <li @if(Request::is('make/reseller')) class="active" @endif><a href="{{ url('/make/reseller') }}"><i class="fa fa-user-secret"></i>
-                            <span> Make Reseller</span></a></li>
-
-                    <li @if(Request::is('make/bd/user')) class="active" @endif><a href="{{ url('/make/bd/user') }}"><i class="fa fa-user-plus"></i>
-                            <span> Make BD User</span></a></li>
-
-
-
-                </ul>
-            </li>
-
-            <li class="treeview @if(Request::is('report/add') || Request::is('user/list') || Request::is('admin/options')) active @endif">
+            <li class="treeview @if(Request::is('report/agent') || Request::is('report/invoice')) active @endif">
                 <a href="#">
                     <i class="fa fa-pie-chart"></i>
                     <span>Reports</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
 
-                <ul class="treeview-menu @if(Request::is('make/agent') || Request::is('make/reseller') || Request::is('make/bd/user') || Request::is('admin/options')) menu-open @endif" style="display: @if(Request::is('admin') || Request::is('user/add') || Request::is('user/list') || Request::is('admin/options')) block @else none @endif">
-                    <li @if(Request::is('make/agent')) class="active" @endif><a href="{{ url('/make/agent') }}"><i class="fa fa-user"></i>
-                            <span> Make Agent</span></a></li>
+                <ul class="treeview-menu @if(Request::is('report/agent') || Request::is('report/invoice')) menu-open @endif"
+                    style="display: @if(Request::is('report/agent') || Request::is('report/invoice')) block @else none @endif">
 
-                    <li @if(Request::is('make/reseller')) class="active" @endif><a href="{{ url('/make/reseller') }}"><i class="fa fa-user-secret"></i>
-                            <span> Make Reseller</span></a></li>
+                    <li @if(Request::is('report/agent')) class="active" @endif><a href="{{ url('/report/agent') }}"><i
+                                    class="fa fa-pie-chart"></i>
+                            <span> Agent Account Report</span></a></li>
 
-                    <li @if(Request::is('make/bd/user')) class="active" @endif><a href="{{ url('/make/bd/user') }}"><i class="fa fa-user-plus"></i>
-                            <span> Make BD User</span></a></li>
+                    <li @if(Request::is('report/invoice')) class="active" @endif><a href="{{ url('/report/invoice') }}"><i
+                                    class="fa fa-file"></i>
+                            <span> Invoice</span></a></li>
 
 
 
                 </ul>
             </li>
 
-            <li @if(Request::is('settings')) class="active" @endif ><a href="{{ url('/settings') }}"><i class="fa fa-gears"></i>
+            <li @if(Request::is('settings')) class="active" @endif ><a href="{{ url('/settings') }}"><i
+                            class="fa fa-gears"></i>
                     <span>Settings</span></a></li>
 
-            <li @if(Request::is('profile')) class="active" @endif ><a href="{{ url('/profile') }}"><i class="fa fa-user"></i>
+            <li @if(Request::is('profile')) class="active" @endif ><a href="{{ url('/profile') }}"><i
+                            class="fa fa-user"></i>
                     <span>Profile</span></a></li>
-
-
-
 
 
         </ul>
