@@ -39,7 +39,7 @@
                                 <div class="form-group">
                                     <label><i class="fa fa-key"></i> Password</label>
                                     <input class="form-control" type="password" id="password"
-                                           placeholder="Enter Email Address">
+                                           placeholder="Enter Password">
                                 </div>
 
                                 <div class="form-group">
@@ -618,9 +618,12 @@
                                     <label><i class="fa fa-users"></i> User Type</label>
                                     <select id="type" class="form-control">
                                         @if(Auth::user()->type == "admin")
-                                            <option value="admin">Admin</option>
-                                            <option value="agent">Agent</option>
+
                                             <option value="reseller">Reseller</option>
+
+                                            <option value="agent">Agent</option>
+                                            <option value="admin">Admin</option>
+
                                         @endif
 
                                         @if(Auth::user()->type == "reseller")
@@ -684,11 +687,11 @@
                         }, 2000);
 
                     }
-                    else{
-                        swal("Warning!",data,"warning");
+                    else {
+                        swal("Warning!", data, "warning");
                     }
                 },
-                error:function (data) {
+                error: function (data) {
                     alert("Something went wrong");
                     console.log(data.responseText);
                 }

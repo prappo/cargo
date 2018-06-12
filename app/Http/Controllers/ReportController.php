@@ -8,5 +8,7 @@ use App\Http\Requests;
 
 class ReportController extends Controller
 {
-    //
+    public function showAgentReport($id){
+        return view('reports.agentAccount');
+    }
 }

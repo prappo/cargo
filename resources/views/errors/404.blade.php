@@ -10,7 +10,7 @@
 </head>
 <body>
 <div style="padding: 200px" align="center">
-    <h1>Permission denied </h1>
+    <h1>404 Page Not found </h1>
     <h2></h2>
 </div>
 

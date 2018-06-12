@@ -98,6 +98,14 @@ class UserController extends Controller
 
     public function deleteUser(Request $request)
     {
+        if (User::where('id', $request->id)->value('type') == "admin") {
+            return "You can't delete Admin account";
+        }
+
+        if ($request->id == Auth::user()->id) {
+            return "You can't delete your own account";
+        }
+
         try {
             User::where('id', $request->id)->delete();
             return "success";
@@ -149,6 +157,26 @@ class UserController extends Controller
             return $exception->getMessage();
         }
 
+    }
+
+    public function profile()
+    {
+        $userId = Auth::user()->id;
+        return view('user.profile', compact('userId'));
+    }
+
+    public function userList()
+    {
+        if (Auth::user()->type == "admin") {
+            $data = User::all();
+
+        } elseif (Auth::user()->type == "reseller") {
+            $data = User::where('ref', Auth::user()->id)->get();
+        } else {
+            return "Access denied";
+        }
+
+        return view('user.userList', compact('data'));
     }
 
 

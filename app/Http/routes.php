@@ -27,6 +27,21 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('/user/add','UserController@createUser');
         Route::post('/user/update','UserController@updateInformation');
         Route::get('/user/{userId}/update','UserController@updateInformationIndex');
+        Route::get('/user/list','UserController@userList');
+        Route::post('/user/delete','UserController@deleteUser');
+
+        // profile route
+
+        Route::get('/profile','UserController@profile');
+        Route::post('/profile/update','UserController@updateProfile');
+
+        // Reporting
+
+        Route::get('/report/agent/{id}','ReportController@showAgentReport');
+
+        // order
+
+        Route::get('/order','OrderController@index');
     });
 
 
