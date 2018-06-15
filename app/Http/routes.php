@@ -42,6 +42,13 @@ Route::group(['middleware' => 'web'], function () {
         // order
 
         Route::get('/order','OrderController@index');
+
+        // Balance
+
+        Route::get('/balance/add','BalanceController@addBalanceIndex');
+        Route::get('/balance/update','BalanceController@updateBalanceIndex');
+        Route::post('/balance/update','BalanceController@updateBalance');
+        Route::post('/balance/get/info','BalanceController@getInfo');
     });
 
 

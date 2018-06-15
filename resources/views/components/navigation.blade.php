@@ -81,6 +81,10 @@
 
 
                 <!-- User Account: style can be found in dropdown.less -->
+
+                <li class="">
+                    <a><d style="font-weight: 200">Balance</d> <b>{{\App\Balance::where('userId',Auth::user()->id)->value('amount')}}</b></a>
+                </li>
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img @if(Auth::user()->img == "") src="{{ url('/images/admin-lte/avatar.png') }}" @else src="{{url('/uploads')}}/{{Auth::user()->img}}" @endif class="user-image" alt="User Image">

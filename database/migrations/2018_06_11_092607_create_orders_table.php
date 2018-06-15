@@ -37,7 +37,7 @@ class CreateOrdersTable extends Migration
             $table->string('delivery_way');
             $table->string('departure_airport')->nullable();
             $table->string('arrival_airport')->nullable();
-            $table->string('number_of_box');
+            $table->string('number_of_box')->nullable();
             $table->string('orderId'); // This ID will generate randomly from script
 
 

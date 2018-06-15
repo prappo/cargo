@@ -44,7 +44,22 @@
                                 class="fa fa-users"></i>
                         <span>Users</span></a></li>
 
+                <li class="treeview @if(Request::is('balance/add') || Request::is('balance/update')) active @endif">
+                    <a href="#">
+                        <i class="fa fa-money"></i>
+                        <span>Balance</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
 
+                    <ul class="treeview-menu @if(Request::is('balance/add') || Request::is('balance/update')) menu-open @endif"
+                        style="display: @if(Request::is('balance/add') || Request::is('balance/update')) block @else none @endif">
+
+                        <li @if(Request::is('balance/add')) class="active" @endif><a href="{{ url('/balance/add') }}">
+                                <span> Add / Update Balance</span></a></li>
+
+
+                    </ul>
+                </li>
 
                 <li class="treeview @if(Request::is('report/agent') || Request::is('report/invoice')) active @endif">
                     <a href="#">
