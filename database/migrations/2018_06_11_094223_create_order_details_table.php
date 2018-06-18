@@ -16,13 +16,13 @@ class CreateOrderDetailsTable extends Migration
             $table->increments('id');
             $table->string('userId');
             $table->string('orderId');
-            $table->string('product_description');
-            $table->string('weight');
-            $table->string('cus_status');
-            $table->string('cus_charge');
-            $table->string('per_kg');
-            $table->string('charge');
-            $table->string('total');
+            $table->string('product_description')->nullable();
+            $table->string('weight')->nullable();
+            $table->string('cus_status')->nullable();
+            $table->string('cus_charge')->nullable();
+            $table->string('per_kg')->nullable();
+            $table->string('charge')->nullable();
+            $table->string('total')->nullable();
             $table->timestamps();
         });
     }

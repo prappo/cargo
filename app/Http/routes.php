@@ -42,6 +42,7 @@ Route::group(['middleware' => 'web'], function () {
         // order
 
         Route::get('/order','OrderController@index');
+        Route::post('/order/add/item','OrderController@addItem');
 
         // Balance
 
