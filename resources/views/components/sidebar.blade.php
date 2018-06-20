@@ -44,18 +44,24 @@
                                 class="fa fa-users"></i>
                         <span>Users</span></a></li>
 
-                <li class="treeview @if(Request::is('balance/add') || Request::is('balance/update')) active @endif">
+                <li class="treeview @if(Request::is('balance/add') || Request::is('balance/update') || Request::is('balance/requests') || Request::is('balance/request/make'))) active @endif">
                     <a href="#">
                         <i class="fa fa-money"></i>
                         <span>Balance</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
 
-                    <ul class="treeview-menu @if(Request::is('balance/add') || Request::is('balance/update')) menu-open @endif"
-                        style="display: @if(Request::is('balance/add') || Request::is('balance/update')) block @else none @endif">
+                    <ul class="treeview-menu @if(Request::is('balance/add') || Request::is('balance/update') || Request::is('balance/requests') || Request::is('balance/request/make')) menu-open @endif"
+                        style="display: @if(Request::is('balance/add') || Request::is('balance/update') || Request::is('balance/requests') || Request::is('balance/request/make')) block @else none @endif">
 
                         <li @if(Request::is('balance/add')) class="active" @endif><a href="{{ url('/balance/add') }}">
                                 <span> Add / Update Balance</span></a></li>
+
+                        <li @if(Request::is('balance/request/make')) class="active" @endif><a href="{{ url('balance/request/make') }}">
+                                <span> Make Balance Request</span></a></li>
+
+                        <li @if(Request::is('balance/requests')) class="active" @endif><a href="{{ url('balance/requests') }}">
+                                <span> Balance Requests</span></a></li>
 
 
                     </ul>
@@ -99,6 +105,10 @@
                 <li @if(Request::is('invoice')) class="active" @endif ><a href="{{ url('/invoice') }}"><i
                                 class="fa fa-pie-chart"></i>
                         <span>Invoice</span></a></li>
+
+                <li @if(Request::is('balance/request')) class="active" @endif ><a href="{{ url('/balance/request') }}"><i
+                                class="fa fa-money"></i>
+                        <span>Balance Request</span></a></li>
             @endif
 
 

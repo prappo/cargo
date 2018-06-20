@@ -829,20 +829,19 @@
                                             <th>Total</th>
                                             <th>Action</th>
                                         </tr>
-                                        <div id="itemSection">
 
-                                        </div>
 
                                         <tr>
 
                                             <td><input id="productDescription" type="text" class="form-control"></td>
-                                            <td><input id="weight" type="number" class="form-control"></td>
+                                            <td><input value="0" id="weight" type="number" class="form-control"></td>
 
-                                            <td><input id="cusCharge" class="form-control" type="number"></td>
-                                            <td><input id="perKg" class="form-control" style="background:yellow"
+                                            <td><input value="0" id="cusCharge" class="form-control" type="number"></td>
+                                            <td><input value="0" id="perKg" class="form-control"
+                                                       style="background:yellow"
                                                        type="number"></td>
-                                            <td><input id="charge" class="form-control" type="number"></td>
-                                            <td><input id="total" class="form-control"
+                                            <td><input value="0" id="charge" class="form-control" type="number"></td>
+                                            <td><input value="0" id="total" class="form-control"
                                                        style="background:green; font-weight: 700;color:white"
                                                        type="text"></td>
                                             <td>
@@ -856,9 +855,17 @@
                                             <td colspan="5"></td>
                                             <td><b>Total</b></td>
 
-                                            <td><input class="form-control" style="background: pink" type="text"></td>
+                                            <td><input id="sum" class="form-control" style="background: pink"
+                                                       type="text"></td>
                                         </tr>
                                     </table>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-9"></div>
+                                        <div class="col-md-3">
+                                            <button id="request" class="btn btn-block btn-success"><i class="fa fa-send"></i> <b>Request</b></button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -869,7 +876,9 @@
                 </div>
 
                 {{-- Order details end--}}
+                <div id="getJs">
 
+                </div>
 
                 {{-- block 1 end--}}
 
@@ -903,6 +912,7 @@
         $('#orderId').val(orderId);
 
         $('#addItem').click(function () {
+
             $.ajax({
                 url: '{{url('/order/add/item')}}',
                 type: 'POST',
@@ -917,6 +927,7 @@
                 }, success: function (data) {
                     if (data.status == "success") {
                         $('#itemTable tr:last').before(data.result);
+                        $('#sum').val(data.sum);
                     } else {
                         swal("Warning !", data.message, "warning");
                     }
@@ -928,9 +939,35 @@
                     console.log(data.responseText);
                 }
             });
-
+            $.ajax({
+                url: '{{url('/order/getjs')}}',
+                type: 'POST',
+                data: {},
+                success: function (data) {
+                    $('#getJs').html(data);
+                }
+            });
 
         });
+
+        $("#cusCharge").bind('keyup mouseup', function () {
+
+            var result = parseInt($('#cusCharge').val()) + parseInt($('#charge').val()) + (parseInt($('#weight').val()) * parseInt($('#perKg').val()));
+            $('#total').val(result);
+
+        });
+
+        $('#perKg').bind('keyup mouseup', function () {
+            var result = parseInt($('#cusCharge').val()) + parseInt($('#charge').val()) + (parseInt($('#weight').val()) * parseInt($('#perKg').val()));
+            $('#total').val(result);
+
+        });
+        $('#charge').bind('keyup mouseup', function () {
+            var result = parseInt($('#cusCharge').val()) + parseInt($('#charge').val()) + (parseInt($('#weight').val()) * parseInt($('#perKg').val()));
+            $('#total').val(result);
+        });
+
+
     </script>
 @endsection
 
