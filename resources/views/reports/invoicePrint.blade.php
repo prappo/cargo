@@ -2,16 +2,12 @@
 @section('title','Invoice')
 
 @section('content')
-    <div class="wrapper">
-        @include('components.navigation')
-        @include('components.sidebar')
 
+<body onload="window.print();">
 
-        <div class="content-wrapper">
-            <section class="content">
 
                 {{-- block 1 start--}}
-                <section class="invoice">
+                <section  class="invoice">
                     <!-- title row -->
                     <div class="row">
                         <div class="col-xs-12">
@@ -48,7 +44,7 @@
                         </div>
                         <!-- /.col -->
                         <div class="col-sm-4 invoice-col">
-                            <b>Order ID:</b># {{$id}}<br>
+                            <b>Order ID:</b> {{$id}}<br>
                             <b>Document Number:</b> {{\App\Order::where('orderId',$id)->value('document_number')}}<br>
                             <b>Expected Date to
                                 receive:</b> {{\App\Order::where('orderId',$id)->value('expected_date_to_receive')}}<br>
@@ -106,17 +102,16 @@
                     <!-- this row will not appear when printing -->
                     <div class="row no-print">
                         <div class="col-xs-12">
-                            <a href="{{url('/invoice/print')}}/{{$id}}" target="_blank" class="btn btn-default"><i
+                            <a href="invoice-print.html" target="_blank" class="btn btn-default"><i
                                         class="fa fa-print"></i> Print</a>
+
                         </div>
                     </div>
                 </section>
-                {{-- block 1 end--}}
 
-            </section>{{--End content--}}
-        </div>{{--End content-wrapper--}}
-        @include('components.footer')
-    </div>{{--End wrapper--}}
+
+</body>
+
 @endsection
 
 

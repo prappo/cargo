@@ -29,9 +29,7 @@
                                 class="fa fa-home"></i>
                         <span>Home</span></a></li>
 
-                <li @if(Request::is('invoice')) class="active" @endif ><a href="{{ url('/invoice') }}"><i
-                                class="fa fa-files-o"></i>
-                        <span>Invoice</span></a></li>
+
 
 
 
@@ -53,15 +51,22 @@
 
                     <ul class="treeview-menu @if(Request::is('balance/add') || Request::is('balance/update') || Request::is('balance/requests') || Request::is('balance/request/make')) menu-open @endif"
                         style="display: @if(Request::is('balance/add') || Request::is('balance/update') || Request::is('balance/requests') || Request::is('balance/request/make')) block @else none @endif">
+                        @if(Auth::user()->type == "admin")
+                            <li @if(Request::is('balance/add')) class="active" @endif><a
+                                        href="{{ url('/balance/add') }}">
+                                    <span> Add / Update Balance</span></a></li>
 
-                        <li @if(Request::is('balance/add')) class="active" @endif><a href="{{ url('/balance/add') }}">
-                                <span> Add / Update Balance</span></a></li>
-
-                        <li @if(Request::is('balance/request/make')) class="active" @endif><a href="{{ url('balance/request/make') }}">
-                                <span> Make Balance Request</span></a></li>
-
-                        <li @if(Request::is('balance/requests')) class="active" @endif><a href="{{ url('balance/requests') }}">
-                                <span> Balance Requests</span></a></li>
+                            <li @if(Request::is('balance/requests')) class="active" @endif><a
+                                        href="{{ url('balance/requests') }}">
+                                    <span> Balance Requests</span></a></li>
+                            <li @if(Request::is('balance/request/make')) class="active" @endif><a
+                                        href="{{ url('balance/request/make') }}">
+                                    <span> Make Balance Request</span></a></li>
+                        @else
+                            <li @if(Request::is('balance/request')) class="active" @endif><a
+                                        href="{{ url('balance/request') }}">
+                                    <span> Make Balance Request</span></a></li>
+                        @endif
 
 
                     </ul>
@@ -85,6 +90,10 @@
                                     href="{{ url('/report/invoice') }}"><i
                                         class="fa fa-file"></i>
                                 <span> Invoice</span></a></li>
+                        <li @if(Request::is('report/outstanding')) class="active" @endif><a
+                                    href="{{ url('/report/outstanding') }}"><i
+                                        class="fa fa-user-secret"></i>
+                                <span> Outstanding Agents</span></a></li>
 
 
                     </ul>
@@ -102,11 +111,12 @@
                                 class="fa fa-users"></i>
                         <span>Customers</span></a></li>
 
-                <li @if(Request::is('invoice')) class="active" @endif ><a href="{{ url('/invoice') }}"><i
+                <li @if(Request::is('report/invoice')) class="active" @endif ><a href="{{ url('/report/invoice') }}"><i
                                 class="fa fa-pie-chart"></i>
                         <span>Invoice</span></a></li>
 
-                <li @if(Request::is('balance/request')) class="active" @endif ><a href="{{ url('/balance/request') }}"><i
+                <li @if(Request::is('balance/request')) class="active" @endif ><a
+                            href="{{ url('/balance/request') }}"><i
                                 class="fa fa-money"></i>
                         <span>Balance Request</span></a></li>
             @endif

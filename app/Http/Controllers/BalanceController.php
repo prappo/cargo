@@ -96,7 +96,11 @@ class BalanceController extends Controller
 
     public function balanceRequestIndex()
     {
-        $data = User::where('type', 'agent')->get();
+        if(Auth::user()->type != "admin"){
+            return "Permission denied";
+        }
+
+        $data = User::all();
         return view('balance.makeRequest', compact('data'));
     }
 
@@ -148,7 +152,7 @@ class BalanceController extends Controller
 
             $finalBalance = $currentBalance + $newBalance;
 
-            
+
             Balance::where('userId', $r->userId)->update([
                 'amount' => $finalBalance
             ]);

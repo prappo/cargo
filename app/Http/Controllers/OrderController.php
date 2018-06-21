@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Balance;
+use App\Customer;
+use App\dc;
+use App\Order;
 use App\OrderDetails;
 use Illuminate\Http\Request;
 
@@ -109,5 +113,64 @@ class OrderController extends Controller
         });
          </script>
         ";
+    }
+
+    public function order(Request $request)
+    {
+        try {
+            $number_of_box = OrderDetails::where('orderId', $request->orderId)->count();
+            $order = new Order();
+            $order->userId = Auth::user()->id;
+            $order->customer_name = $request->cName;
+            $order->document_number = $request->document_number;
+            $order->customer_city = $request->cCity;
+            $order->customer_address = $request->cAddress;
+            $order->customer_phone = $request->cPhone;
+            $order->customer_email = "";
+            $order->customer_country = $request->cCountry;
+            $order->receiver_name = $request->rName;
+            $order->receiver_address = $request->rAddress;
+            $order->receiver_city = $request->rCity;
+            $order->receiver_country = $request->rCountry;
+            $order->phone = $request->rPhone;
+            $order->expected_date_to_receive = $request->expected_date_to_receive;
+            $order->delivery_condition = $request->delivery_condition;
+            $order->delivery_charge = $request->delivery_charge;
+            $order->delivery_way = $request->delivery_way;
+            $order->departure_airport = $request->departure_airport;
+            $order->arrival_airport = $request->arrival_airport;
+            $order->number_of_box = $number_of_box;
+            $order->orderId = $request->orderId;
+            $order->ref = Auth::user()->ref;
+            $order->save();
+
+            $currentBalance = Balance::where('userId', Auth::user()->id)->value('amount');
+            $debit = OrderDetails::where('orderId', $request->orderId)->sum('total');
+            $newBalance = $currentBalance - $debit;
+
+            $dc = new dc();
+            $dc->userId = Auth::user()->id;
+            $dc->orderId = $request->orderId;
+            $dc->debit = $debit;
+            $dc->credit = 0;
+            $dc->balance = $newBalance;
+            $dc->save();
+
+            $customer = new Customer();
+            $customer->name = $request->cName;
+            $customer->userId = Auth::user()->id;
+            $customer->phone = $request->cPhone;
+            $customer->address = $request->cAddress;
+            $customer->city = $request->cCity;
+            $customer->country = $request->cCountry;
+            $customer->save();
+
+            Balance::where('userId', Auth::user()->id)->update([
+                'amount' => $newBalance
+            ]);
+            return "success";
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
+        }
     }
 }

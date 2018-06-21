@@ -20,7 +20,7 @@ Route::group(['middleware' => 'web'], function () {
         // auth related routes will be here
 
         Route::get('/home', 'HomeController@index');
-        Route::get('/invoice', 'InvoiceController@index');
+        Route::get('/report/invoice', 'InvoiceController@index');
 
 
         Route::get('/user/add', 'UserController@addUserIndex');
@@ -38,14 +38,18 @@ Route::group(['middleware' => 'web'], function () {
         // Reporting
 
         Route::get('/report/agent/{id}', 'ReportController@showAgentReport');
+        Route::get('/report/agent', 'ReportController@agentList');
+        Route::post('/report/agent', 'ReportController@showAgentReportByDate');
+        Route::get('/report/outstanding', 'ReportController@outstanding');
 
         // order
 
         Route::get('/order', 'OrderController@index');
+        Route::post('/order', 'OrderController@order');
         Route::post('/order/add/item', 'OrderController@addItem');
         Route::post('/order/delete/item', 'OrderController@deleteItem');
 
-        Route::post('/order/getjs','OrderController@getJs');
+        Route::post('/order/getjs', 'OrderController@getJs');
 
         // Balance
 
@@ -61,6 +65,9 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('/balance/request/make', 'BalanceController@balanceRequest');
         Route::post('/balance/request/approve', 'BalanceController@approveBalanceRequest');
         Route::post('/balance/request/delete', 'BalanceController@deleteBalanceRequest');
+
+        Route::get('/invoice/{id}', 'ReportController@invoice');
+        Route::get('/invoice/print/{id}', 'ReportController@invoicePrint');
 
 
     });

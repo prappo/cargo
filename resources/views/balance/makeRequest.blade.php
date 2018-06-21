@@ -28,7 +28,7 @@
                                 <div class="form-group">
                                     <label><i class="fa fa-user"></i>User</label>
                                     <select id="userId" style="width: 100%" class="form-control select2">
-                                        <option value="none">Select Agent</option>
+                                        <option value="none">Select User</option>
                                         @foreach($data as $d)
                                             <option value="{{$d->id}}">{{$d->name}}</option>
                                         @endforeach

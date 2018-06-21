@@ -9,6 +9,15 @@
 
         <div class="content-wrapper">
             <section class="content">
+                <div class="box">
+                    <form method="post" action="{{url('/report/agent')}}">
+                        From <input type="date" value="{{$from}}" name="from">
+                        To <input type="date" value="{{$to}}" name="to">
+                        <input type="hidden" value="{{$id}}" name="userId">
+
+                        <input type="submit" class="btn btn-primary" value="Get Data">
+                    </form>
+                </div>
 
                 {{-- block 1 start--}}
                 <div class="box">
@@ -24,19 +33,19 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <p>Agent Account Report</p>
-                                <p>Agent Code:121</p>
+                                <p>Agent Code:GA-0{{$id}}</p>
                             </div>
 
                             <div class="col-md-3">
-                                <p>Country : Italy</p>
-                                <p>Agent Name : Golam Kibria</p>
+                                <p>Country : {{\App\User::where('id',$id)->value('country')}}</p>
+                                <p>Agent Name : {{\App\User::where('id',$id)->value('name')}}</p>
                             </div>
                             <div class="col-md-3">
-                                <p>From : 1-2-2018</p>
-                                <p>To : 1-2-2018</p>
+                                <p>From : {{$from}}</p>
+                                <p>To : {{$to}}</p>
                             </div>
                             <div class="col-md-3">
-                                <b>Balance : 1234</b>
+                                <b>Balance : {{\App\Balance::where('userId',$id)->value('amount')}}</b>
                             </div>
 
 
@@ -60,57 +69,33 @@
                                 </th>
                             </tr>
 
-                            <tr>
-                                <td class="groupOne">Data</td>
-                                <td class="groupOne">Data</td>
-                                <td class="groupOne">Data</td>
-                                <td class="groupOne">Data</td>
-                                <td class="groupOne">Data</td>
-                                <td class="groupOne">Data</td>
-                                <td class="groupTwo">Data</td>
-                                <td class="groupTwo">Data</td>
-                                <td class="groupTwo">Data</td>
-                                <td class="groupThree">Data</td>
-                                <td class="groupThree">Data</td>
-                                <td class="groupThree">Data</td>
-                            </tr>
-                            <tr>
-                                <td class="groupOne">Data</td>
-                                <td class="groupOne">Data</td>
-                                <td class="groupOne">Data</td>
-                                <td class="groupOne">Data</td>
-                                <td class="groupOne">Data</td>
-                                <td class="groupOne">Data</td>
-                                <td class="groupTwo">Data</td>
-                                <td class="groupTwo">Data</td>
-                                <td class="groupTwo">Data</td>
-                                <td class="groupThree">Data</td>
-                                <td class="groupThree">Data</td>
-                                <td class="groupThree">Data</td>
-                            </tr>
+                            @foreach($data as $d)
 
-                            <tr>
-                                <td class="groupOne">Data</td>
-                                <td class="groupOne">Data</td>
-                                <td class="groupOne">Data</td>
-                                <td class="groupOne">Data</td>
-                                <td class="groupOne">Data</td>
-                                <td class="groupOne">Data</td>
-                                <td class="groupTwo">Data</td>
-                                <td class="groupTwo">Data</td>
-                                <td class="groupTwo">Data</td>
-                                <td class="groupThree">Data</td>
-                                <td class="groupThree">Data</td>
-                                <td class="groupThree">Data</td>
-                            </tr>
+
+                                <tr>
+                                    <td class="groupOne">Data</td>
+                                    <td class="groupOne">{{\Carbon\Carbon::parse($d->created_at)->format('d-m-Y')}}</td>
+                                    <td class="groupOne">Data</td>
+                                    <td class="groupOne">{{$d->orderId}}</td>
+                                    <td class="groupOne">{{\App\OrderDetails::where('orderId',$d->orderId)->sum('weight')}}</td>
+                                    <td class="groupOne">{{\App\OrderDetails::where('orderId',$d->orderId)->sum('per_kg')}}</td>
+                                    <td class="groupTwo">{{$d->customer_name}}</td>
+                                    <td class="groupTwo">{{$d->receiver_name}}</td>
+                                    <td class="groupTwo">{{$d->receiver_country}}</td>
+                                    <td class="groupThree">{{\App\dc::where('userId',$d->userId)->where('orderId',$d->orderId)->value('debit')}}</td>
+                                    <td class="groupThree">{{\App\dc::where('userId',$d->userId)->where('orderId',$d->orderId)->value('credit')}}</td>
+                                    <td class="groupThree">{{\App\dc::where('userId',$d->userId)->where('orderId',$d->orderId)->value('balance')}}</td>
+                                </tr>
+
+                            @endforeach
 
 
                             <tr style="background:yellow">
-                                <td colspan="6">Data</td>
-                                <td colspan="3">Data</td>
-                                <td>Data</td>
-                                <td>Data</td>
-                                <td>Data</td>
+                                <td colspan="6"></td>
+                                <td colspan="3"></td>
+                                <td>{{$debit}}</td>
+                                <td>{{$credit}}</td>
+                                <td></td>
 
 
                             </tr>

@@ -64,7 +64,7 @@
                                         <label for="cAddress" class="col-sm-4 control-label"> Address</label>
 
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="cPhone"
+                                            <input type="text" class="form-control" id="cAddress"
                                                    placeholder="Enter Customer Address">
                                         </div>
                                     </div>
@@ -863,7 +863,8 @@
                                     <div class="row">
                                         <div class="col-md-9"></div>
                                         <div class="col-md-3">
-                                            <button id="request" class="btn btn-block btn-success"><i class="fa fa-send"></i> <b>Request</b></button>
+                                            <button id="request" class="btn btn-block btn-success"><i
+                                                        class="fa fa-send"></i> <b>Request</b></button>
                                         </div>
                                     </div>
                                 </div>
@@ -967,6 +968,47 @@
             $('#total').val(result);
         });
 
+        $('#request').click(function () {
+            $.ajax({
+                url: '{{url('/order')}}',
+                type: 'POST',
+                data: {
+                    'cName': $('#cName').val(),
+                    'document_number': $('#document_number').val(),
+                    'cCity': $('#cCity').val(),
+                    'cPhone': $('#cPhone').val(),
+                    'cAddress': $('#cAddress').val(),
+                    'cCountry': $('#cCountry').val(),
+                    'rName': $('#rName').val(),
+                    'rAddress': $('#rAddress').val(),
+                    'rCity': $('#rCity').val(),
+                    'rPhone': $('#rPhone').val(),
+                    'rCountry': $('#rCountry').val(),
+                    'expected_date_to_receive': $('#expected_date_to_receive').val(),
+                    'delivery_condition': $('#delivery_condition').val(),
+                    'delivery_charge': $('#delivery_charge').val(),
+                    'delivery_way': $('#delivery_way').val(),
+                    'departure_airport': $('#departure_airport').val(),
+                    'arrival_airport': $('#arrival_airport').val(),
+                    'orderId': $('#orderId').val()
+
+                },
+                success: function (data) {
+                    if (data == "success") {
+                        swal("Success", "Order Requested successfully", "success");
+                        location.reload();
+
+                    } else {
+                        swal("Warning!", data, "warning");
+                    }
+                },
+                error: function (data) {
+                    swal("Error", "Something went wrong", "error");
+                    console.log(data.responseText);
+
+                }
+            })
+        })
 
     </script>
 @endsection

@@ -39,6 +39,7 @@ class CreateOrdersTable extends Migration
             $table->string('arrival_airport')->nullable();
             $table->string('number_of_box')->nullable();
             $table->string('orderId'); // This ID will generate randomly from script
+            $table->string('ref'); // belonging reseller ID
 
 
             $table->timestamps();
