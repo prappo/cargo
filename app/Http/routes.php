@@ -69,6 +69,9 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/invoice/{id}', 'ReportController@invoice');
         Route::get('/invoice/print/{id}', 'ReportController@invoicePrint');
 
+        Route::get('/customers', 'CustomerController@index');
+        Route::post('/customer/get/info', 'CustomerController@getCustomerInfo');
+
 
     });
 

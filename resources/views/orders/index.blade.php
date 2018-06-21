@@ -24,11 +24,27 @@
                             <div class="form-horizontal">
                                 <div class="box-body">
                                     <div class="form-group">
+                                        <label for="sName" class="col-sm-4 control-label"> Search Old Customer</label>
+
+                                        <div class="col-sm-8">
+
+                                            <select id="sName" class="form-control select2">
+                                                <option value="">Type Customer Name</option>
+
+                                                @foreach(\App\Customer::where('userId',Auth::user()->id)->get() as $c)
+                                                    <option value="{{$c->id}}">{{$c->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
                                         <label for="cName" class="col-sm-4 control-label"> Name</label>
 
                                         <div class="col-sm-8">
                                             <input type="text" class="form-control" id="cName"
                                                    placeholder="Customer Name">
+
                                         </div>
                                     </div>
 
@@ -1007,6 +1023,28 @@
                     console.log(data.responseText);
 
                 }
+            })
+        });
+        $('#sName').on('change', function () {
+            var id = $(this).val();
+            $.ajax({
+                url: "{{url('/customer/get/info')}}",
+                type: 'POST',
+                data: {
+                    'id': id
+                },
+                success: function (data) {
+                    if (data.status == "success") {
+                        $('#cName').val(data.name);
+                        $('#cPhone').val(data.phone);
+                        $('#cCity').val(data.city);
+                        $('#cCountry').val(data.country);
+                        $('#cAddress').val(data.address);
+                    }
+                }, error: function (data) {
+                    console.log(data.responseText);
+                }
+
             })
         })
 
