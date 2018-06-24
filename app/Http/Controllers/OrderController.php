@@ -7,6 +7,7 @@ use App\Customer;
 use App\dc;
 use App\Order;
 use App\OrderDetails;
+use App\ReceiverInfo;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -122,6 +123,8 @@ class OrderController extends Controller
             $order = new Order();
             $order->userId = Auth::user()->id;
             $order->customer_name = $request->cName;
+            $order->customer_surname = $request->cSurname;
+            $order->customer_date_of_birth = $request->cDateOfBirth;
             $order->document_number = $request->document_number;
             $order->customer_city = $request->cCity;
             $order->customer_address = $request->cAddress;
@@ -129,13 +132,15 @@ class OrderController extends Controller
             $order->customer_email = "";
             $order->customer_country = $request->cCountry;
             $order->receiver_name = $request->rName;
+            $order->receiver_surname = $request->rSurname;
+            $order->receiver_date_of_birth = $request->rDateOfBirth;
             $order->receiver_address = $request->rAddress;
             $order->receiver_city = $request->rCity;
             $order->receiver_country = $request->rCountry;
             $order->phone = $request->rPhone;
             $order->expected_date_to_receive = $request->expected_date_to_receive;
             $order->delivery_condition = $request->delivery_condition;
-            $order->delivery_charge = $request->delivery_charge;
+
             $order->delivery_way = $request->delivery_way;
             $order->departure_airport = $request->departure_airport;
             $order->arrival_airport = $request->arrival_airport;
@@ -148,22 +153,76 @@ class OrderController extends Controller
             $debit = OrderDetails::where('orderId', $request->orderId)->sum('total');
             $newBalance = $currentBalance - $debit;
 
-            $dc = new dc();
-            $dc->userId = Auth::user()->id;
-            $dc->orderId = $request->orderId;
-            $dc->debit = $debit;
-            $dc->credit = 0;
-            $dc->balance = $newBalance;
-            $dc->save();
+//            $dc = new dc();
+//            $dc->userId = Auth::user()->id;
+//            $dc->orderId = $request->orderId;
+//            $dc->debit = $debit;
+//            $dc->credit = 0;
+//            $dc->balance = $newBalance;
+//            $dc->save();
 
-            $customer = new Customer();
-            $customer->name = $request->cName;
-            $customer->userId = Auth::user()->id;
-            $customer->phone = $request->cPhone;
-            $customer->address = $request->cAddress;
-            $customer->city = $request->cCity;
-            $customer->country = $request->cCountry;
-            $customer->save();
+            // saving customer data
+            $customerId = "";
+            if ($request->customerId == "") {
+                $customer = new Customer();
+                $customer->name = $request->cName;
+                $customer->surname = $request->cSurname;
+                $customer->date_of_birth = $request->cDateOfBirth;
+                $customer->userId = Auth::user()->id;
+                $customer->phone = $request->cPhone;
+                $customer->address = $request->cAddress;
+                $customer->cap = $request->cCap;
+                $customer->city = $request->cCity;
+                $customer->country = $request->cCountry;
+                $customer->save();
+
+                $customerId = $customer->id;
+            } else {
+                if (!Customer::where('name', $request->cName)->where('date_of_birth', $request->cDateOfBirth)->exists()) {
+                    $customer = new Customer();
+                    $customer->name = $request->cName;
+                    $customer->surname = $request->cSurname;
+                    $customer->date_of_birth = $request->cDateOfBirth;
+                    $customer->userId = Auth::user()->id;
+                    $customer->phone = $request->cPhone;
+                    $customer->address = $request->cAddress;
+                    $customer->city = $request->cCity;
+                    $customer->cap = $request->cCap;
+                    $customer->country = $request->cCountry;
+                    $customer->save();
+
+                    $customerId = $customer->id;
+                }
+            }
+
+            // get the customer Id
+            if ($request->customerId == "") {
+                $cId = $customerId;
+            } else {
+                $cId = $request->customerId;
+            }
+
+            // saving receiver data
+
+
+            if ($request->receiverId == "") {
+                if (!ReceiverInfo::where('name', $request->rName)->where('date_of_birth', $request->rDateOfBirth)->exists()) {
+                    $receiver = new ReceiverInfo();
+                    $receiver->customerId = $cId;
+                    $receiver->name = $request->rName;
+                    $receiver->surname = $request->rSurname;
+                    $receiver->date_of_birth = $request->rDateOfBirth;
+                    $receiver->phone = $request->rPhone;
+                    $receiver->address = $request->rAddress;
+                    $receiver->city = $request->rCity;
+                    $receiver->cap = $request->rCap;
+                    $receiver->country = $request->rCountry;
+                    $receiver->save();
+                }
+
+
+            }
+
 
             Balance::where('userId', Auth::user()->id)->update([
                 'amount' => $newBalance

@@ -11,20 +11,17 @@
             <section class="content">
 
                 {{-- block 1 start--}}
-
+                {{-- Search section --}}
                 <div class="row">
-                    <div class="col-md-6">
-                        <!-- Horizontal Form -->
+                    <div class="col-md-12">
                         <div class="box box-info">
                             <div class="box-header with-border">
-                                <h3 class="box-title"><i class="fa fa-user"></i> Customer Information</h3>
+                                <h3 class="box-title"><i class="fa fa-search"></i> Search Existing Customer</h3>
                             </div>
-                            <!-- /.box-header -->
-                            <!-- form start -->
-                            <div class="form-horizontal">
-                                <div class="box-body">
+                            <div class="box-body">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="sName" class="col-sm-4 control-label"> Search Old Customer</label>
+                                        <label for="sName" class="col-sm-4 control-label"> First Name</label>
 
                                         <div class="col-sm-8">
 
@@ -37,13 +34,101 @@
                                             </select>
                                         </div>
                                     </div>
-
+                                </div>
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="cName" class="col-sm-4 control-label"> Name</label>
+                                        <label for="sName" class="col-sm-4 control-label"> Surname</label>
 
                                         <div class="col-sm-8">
+
+                                            <select id="sSurname" class="form-control select2">
+                                                <option value="">Type Customer Surname</option>
+
+                                                @foreach(\App\Customer::where('userId',Auth::user()->id)->get() as $c)
+                                                    <option value="{{$c->id}}">{{$c->surname}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="sDateOfBirth" class="col-sm-4 control-label"> Date of Birth</label>
+
+                                        <div class="col-sm-8">
+
+                                            <select id="sName" class="form-control select2">
+                                                <option value="">Date of Birth</option>
+
+                                                @foreach(\App\Customer::where('userId',Auth::user()->id)->get() as $c)
+                                                    <option value="{{$c->id}}">{{$c->date_of_birth}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="box-footer">
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+
+                                        <div id="receiverInfoDiv" class="col-sm-8">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- Horizontal Form -->
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+                                <h3 class="box-title"><i class="fa fa-user"></i> Customer Information</h3>
+                            </div>
+                            <!-- /.box-header -->
+                            <!-- form start -->
+                            <div class="form-horizontal">
+                                <div class="box-body">
+
+
+                                    <div class="form-group">
+                                        <label for="cName" class="col-sm-4 control-label">First Name</label>
+
+                                        <div class="col-sm-8">
+                                            <input type="hidden" id="customerId">
                                             <input type="text" class="form-control" id="cName"
                                                    placeholder="Customer Name">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="cSurname" class="col-sm-4 control-label"> Surname</label>
+
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="cSurname"
+                                                   placeholder="Customer Surname">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="cDateOfBirth" class="col-sm-4 control-label"> Date of Birth</label>
+
+                                        <div class="col-sm-8">
+                                            <input type="date" class="form-control" id="cDateOfBirth"
+                                            >
 
                                         </div>
                                     </div>
@@ -82,6 +167,15 @@
                                         <div class="col-sm-8">
                                             <input type="text" class="form-control" id="cAddress"
                                                    placeholder="Enter Customer Address">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="cCap" class="col-sm-4 control-label"> CAP</label>
+
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="cCap"
+                                                   placeholder="">
                                         </div>
                                     </div>
 
@@ -395,11 +489,30 @@
                             <div class="form-horizontal">
                                 <div class="box-body">
                                     <div class="form-group">
-                                        <label for="rName" class="col-sm-4 control-label">Name</label>
+                                        <label for="rName" class="col-sm-4 control-label">First Name</label>
 
                                         <div class="col-sm-8">
+                                            <input type="hidden" id="receiverId">
                                             <input type="text" class="form-control" id="rName"
                                                    placeholder="Receiver Name">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="rSurname" class="col-sm-4 control-label">Surname</label>
+
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="rSurname"
+                                                   placeholder="Receiver Surname">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="rDateOfBirth" class="col-sm-4 control-label">Date of Birth</label>
+
+                                        <div class="col-sm-8">
+                                            <input type="date" class="form-control" id="rDateOfBirth">
                                         </div>
                                     </div>
 
@@ -409,6 +522,15 @@
                                         <div class="col-sm-8">
                                             <input type="text" class="form-control" id="rAddress"
                                                    placeholder="Enter Receiver address">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="rCap" class="col-sm-4 control-label">CAP</label>
+
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="rCap"
+                                                   placeholder="">
                                         </div>
                                     </div>
 
@@ -769,16 +891,6 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
-                                                <label for="delivery_charge" class="col-sm-4 control-label">Delivery
-                                                    Charge</label>
-
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="delivery_charge"
-                                                           placeholder="Delivery Charge">
-                                                </div>
-                                            </div>
-
 
                                         </div>
                                     </div>
@@ -989,20 +1101,27 @@
                 url: '{{url('/order')}}',
                 type: 'POST',
                 data: {
+                    'customerId': $('#customerId').val(),
                     'cName': $('#cName').val(),
+                    'cSurname': $('#cSurname').val(),
+                    'cDateOfBirth': $('#cDateOfBirth').val(),
                     'document_number': $('#document_number').val(),
                     'cCity': $('#cCity').val(),
                     'cPhone': $('#cPhone').val(),
                     'cAddress': $('#cAddress').val(),
+                    'cCap': $('#cCap').val(),
                     'cCountry': $('#cCountry').val(),
+                    'receiverId': $('#receiverId').val(),
                     'rName': $('#rName').val(),
+                    'rSurname': $('#rSurname').val(),
+                    'rDateOfBirth': $('#rDateOfBirth').val(),
                     'rAddress': $('#rAddress').val(),
+                    'rCap': $('#rCap').val(),
                     'rCity': $('#rCity').val(),
                     'rPhone': $('#rPhone').val(),
                     'rCountry': $('#rCountry').val(),
                     'expected_date_to_receive': $('#expected_date_to_receive').val(),
                     'delivery_condition': $('#delivery_condition').val(),
-                    'delivery_charge': $('#delivery_charge').val(),
                     'delivery_way': $('#delivery_way').val(),
                     'departure_airport': $('#departure_airport').val(),
                     'arrival_airport': $('#arrival_airport').val(),
@@ -1035,18 +1154,36 @@
                 },
                 success: function (data) {
                     if (data.status == "success") {
+                        $('#customerId').val(id);
                         $('#cName').val(data.name);
+                        $('#cSurname').val(data.surname);
                         $('#cPhone').val(data.phone);
                         $('#cCity').val(data.city);
                         $('#cCountry').val(data.country);
                         $('#cAddress').val(data.address);
+                        $('#cCap').val(data.cap);
                     }
                 }, error: function (data) {
                     console.log(data.responseText);
                 }
 
-            })
-        })
+            });
+            $.ajax({
+                type: 'POST',
+                url: '{{url('/receivers/get')}}',
+                data: {
+                    'customerId': id
+                },
+                success: function (data) {
+                    $('#receiverInfoDiv').html(data);
+                },
+                error: function (data) {
+                    swal("Error", "Something went wrong", "error");
+                    console.log(data.responseText);
+                }
+            });
+        });
+
 
     </script>
 @endsection

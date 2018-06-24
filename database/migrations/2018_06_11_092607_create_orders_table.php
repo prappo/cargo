@@ -16,6 +16,8 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->string('userId');
             $table->string('customer_name');
+            $table->string('customer_surname');
+            $table->string('customer_date_of_birth');
             $table->string('document_number');
             $table->string('customer_city');
             $table->string('customer_address');
@@ -24,6 +26,8 @@ class CreateOrdersTable extends Migration
             $table->string('customer_country');
             // receiver information
             $table->string('receiver_name');
+            $table->string('receiver_surname');
+            $table->string('receiver_date_of_birth');
             $table->string('receiver_address');
             $table->string('receiver_city');
             $table->string('receiver_country');
@@ -33,7 +37,6 @@ class CreateOrdersTable extends Migration
 
             $table->string('expected_date_to_receive')->nullable();
             $table->string('delivery_condition');
-            $table->string('delivery_charge');
             $table->string('delivery_way');
             $table->string('departure_airport')->nullable();
             $table->string('arrival_airport')->nullable();
