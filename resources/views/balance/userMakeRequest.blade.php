@@ -30,9 +30,14 @@
                                 <div class="form-group">
                                     <label><i class="fa fa-bank"></i>Payment Mood</label>
                                     <select id="paymentMood" class="form-control">
-                                        <option>Bank</option>
-                                        <option>Cash</option>
+                                        <option value="cash">Cash</option>
+                                        <option value="bank">Bank</option>
                                     </select>
+                                </div>
+
+                                <div id="accountList" class="form-group">
+
+
                                 </div>
 
                                 <div class="form-group">
@@ -60,7 +65,7 @@
                     <div class="box-footer">
 
                         <div class="col-md-6">
-                            <button id="send" class="btn btn-block btn-success"><i class="fa fa-send"></i>Send Request
+                            <button id="send" class="btn btn-block btn-success"><b> Save </b>
                             </button>
                         </div>
                     </div>
@@ -78,34 +83,78 @@
     <script>
 
         $('#send').click(function () {
-            if($('#amount').val() == ""){
+            if ($('#amount').val() == "") {
                 return alert("You must enter the amount");
             }
 
+            if ($('#paymentMood').val() == "bank") {
 
-            $.ajax({
-                url: '{{url('/balance/request/make')}}',
-                type: 'POST',
-                data: {
-                    'userId': '{{Auth::user()->id}}',
-                    'paymentMood': $('#paymentMood').val(),
-                    'description': $('#description').val(),
-                    'amount': $('#amount').val()
-                },
-                success: function (data) {
-                    if (data == "success") {
-                        alert("Request submitted !!");
-                        location.reload();
-                    } else {
-                        alert(data);
+
+                $.ajax({
+                    url: '{{url('/balance/request/make')}}',
+                    type: 'POST',
+                    data: {
+                        'userId': '{{Auth::user()->id}}',
+                        'paymentMood': $('#paymentMood').val(),
+                        'description': $('#description').val(),
+                        'accountId':$('#banks').val(),
+                        'amount': $('#amount').val()
+                    },
+                    success: function (data) {
+                        if (data == "success") {
+                            alert("Request submitted !!");
+                            location.reload();
+                        } else {
+                            alert(data);
+                        }
+                    },
+                    error: function (data) {
+                        swal("Error", "Something went wrong", "error");
+                        console.log(data.responseText);
                     }
-                },
-                error: function (data) {
-                    swal("Error", "Something went wrong", "error");
-                    console.log(data.responseText);
-                }
-            })
+                });
+
+            } else {
+                $.ajax({
+                    url: '{{url('/balance/request/make')}}',
+                    type: 'POST',
+                    data: {
+                        'userId': '{{Auth::user()->id}}',
+                        'paymentMood': $('#paymentMood').val(),
+                        'description': $('#description').val(),
+                        'amount': $('#amount').val()
+                    },
+                    success: function (data) {
+                        if (data == "success") {
+                            alert("Request submitted !!");
+                            location.reload();
+                        } else {
+                            alert(data);
+                        }
+                    },
+                    error: function (data) {
+                        swal("Error", "Something went wrong", "error");
+                        console.log(data.responseText);
+                    }
+                })
+            }
+
         });
+
+        $('#paymentMood').on('change', function () {
+            if ($(this).val() == "bank") {
+                $.ajax({
+                    url: '{{url('/bank/account/get')}}',
+                    type: 'POST',
+                    data: {},
+                    success: function (data) {
+                        $('#accountList').html(data)
+                    }
+                })
+            } else {
+                $('#accountList').html('');
+            }
+        })
 
     </script>
 @endsection

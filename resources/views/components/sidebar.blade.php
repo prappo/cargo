@@ -98,6 +98,30 @@
 
                     </ul>
                 </li>
+
+
+                <li class="treeview @if(Request::is('bank/account/add') || Request::is('bank/accounts/show')) active @endif">
+                    <a href="#">
+                        <i class="fa fa-bank"></i>
+                        <span>Bank</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+
+                    <ul class="treeview-menu @if(Request::is('bank/account/add') || Request::is('bank/accounts/show')) menu-open @endif"
+                        style="display: @if(Request::is('bank/account/add') || Request::is('bank/accounts/show')) block @else none @endif">
+
+                        <li @if(Request::is('bank/account/add')) class="active" @endif><a href="{{ url('/bank/account/add') }}"><i
+                                        class="fa fa-plus-circle"></i>
+                                <span> Add Account</span></a></li>
+                        <li @if(Request::is('bank/accounts/list')) class="active" @endif><a href="{{ url('/bank/accounts/list') }}"><i
+                                        class="fa fa-list"></i>
+                                <span> Accounts List</span></a></li>
+
+
+
+
+                    </ul>
+                </li>
             @endif
 
 

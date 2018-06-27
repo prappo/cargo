@@ -42,6 +42,53 @@ class CustomerController extends Controller
 
     }
 
+    public function getCustomerInfoBySurname(Request $request)
+    {
+        try {
+            $customer = Customer::where('id', $request->id)->first();
+
+            return response()->json([
+                'status' => 'success',
+                'name' => $customer->name,
+                'surname' => $customer->surname,
+                'phone' => $customer->phone,
+                'address' => $customer->address,
+                'city' => $customer->city,
+                'country' => $customer->country,
+                'cap' => $customer->cap
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $exception->getMessage()
+            ]);
+        }
+
+    }
+
+    public function getCustomerInfoByDate(Request $request){
+        try {
+            $customer = Customer::where('id', $request->id)->first();
+
+            return response()->json([
+                'status' => 'success',
+                'name' => $customer->name,
+                'surname' => $customer->surname,
+                'phone' => $customer->phone,
+                'address' => $customer->address,
+                'city' => $customer->city,
+                'country' => $customer->country,
+                'cap' => $customer->cap
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $exception->getMessage()
+            ]);
+        }
+    }
+
+
     public function getReceivers(Request $request)
     {
         echo "<select id='rInfo' class='form-control'>";
@@ -89,7 +136,7 @@ class CustomerController extends Controller
         try {
             $receiver = ReceiverInfo::where('customerId', $request->id)->first();
             return response()->json([
-                'status'=>'success',
+                'status' => 'success',
                 'name' => $receiver->name,
                 'surname' => $receiver->surname,
                 'date_of_birth' => $receiver->date_of_birth,

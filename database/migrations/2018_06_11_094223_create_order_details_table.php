@@ -22,6 +22,7 @@ class CreateOrderDetailsTable extends Migration
             $table->string('cus_charge')->nullable();
             $table->string('per_kg')->nullable();
             $table->string('charge')->nullable();
+            $table->string('home_delivery_charge')->nullable();
             $table->string('total')->nullable();
             $table->timestamps();
         });

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBalanceRequestsTable extends Migration
+class CreateBanksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,17 +12,12 @@ class CreateBalanceRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('balance_requests', function (Blueprint $table) {
+        Schema::create('banks', function (Blueprint $table) {
             $table->increments('id');
             $table->string('userId');
-            $table->string('paymentMood');
-            $table->integer('amount');
-            $table->string('bankAccount')->nullable();
-            $table->string('description')->nullable();
-            $table->string('status');
-            $table->string('ref');
+            $table->string('account');
+            $table->string('description')->nullable(); // jake dise
             $table->timestamps();
-
         });
     }
 
@@ -33,6 +28,6 @@ class CreateBalanceRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('balance_requests');
+        Schema::drop('banks');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\OrderDetails;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -19,6 +20,22 @@ class InvoiceController extends Controller
         } else {
             $data = Order::where('userId', Auth::user()->id)->get();
         }
-        return view('invoice',compact('data'));
+        return view('invoice', compact('data'));
+    }
+
+    public function delete(Request $request)
+    {
+        if (Auth::user()->type != "admin") {
+            return "Permission denied";
+        }
+
+        try {
+            Order::where('id', $request->id)->delete();
+            OrderDetails::where('orderId', $request->id)->delet();
+
+            return "success";
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
+        }
     }
 }

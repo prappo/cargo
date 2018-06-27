@@ -32,6 +32,7 @@ class OrderController extends Controller
             $item->cus_charge = $request->cusCharge;
             $item->per_kg = $request->perKg;
             $item->charge = $request->charge;
+            $item->charge = $request->home_delivery_charge;
             $item->total = $request->total;
             $item->save();
 
@@ -42,13 +43,19 @@ class OrderController extends Controller
 
             $result = '
         <tr id="' . $id . '">
-        <td>' . $request->productDescription . '</td>
-        <td>' . $request->weight . '</td>
-        <td>' . $request->cusCharge . '</td>
-        <td>' . $request->perKg . '</td>
-        <td>' . $request->charge . '</td>
-        <td>' . $request->total . '</td>
-        <td><button order-id="' . $request->orderId . '" data-id="' . $id . '" class="btn btn-xs btn-danger"><i class="fa fa-times"></i> Delete</button></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_productDescription" type="text" value="' . $request->productDescription . '"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_weight" type="number" value="' . $request->weight . '"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_cusCharge" type="number" value="' . $request->cusCharge . '"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_perKg" type="number" value="' . $request->perKg . '" style="background:yellow"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_charge" type="number" value="' . $request->charge . '"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_homeDeliveryCharge" type="number" value="' . $request->homeDeliveryCharge . '"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_total" type="number" value="' . $request->total . '" style="background:green;color:white;font-weight:700"></td>
+        <td>
+        <div class="btn-group">
+        <button order-id="' . $request->orderId . '" data-id="' . $id . '" class="btn btn-xs btn-primary btnUpdate"><i class="fa fa-save"></i> Update</button>
+        <button order-id="' . $request->orderId . '" data-id="' . $id . '" class="btn btn-xs btn-danger"><i class="fa fa-times"></i> Delete</button>
+        </div>
+        </td>
         </tr>
         ';
 
@@ -110,7 +117,47 @@ class OrderController extends Controller
                     swal('Error', 'Something went wrong', 'error');
                     console.log(data.responseText);
                 }
-            })
+            });
+        });
+         
+         $('.btnUpdate').click(function(){
+            var id = $(this).attr('data-id');
+            var orderId = $(this).attr('order-id');
+            
+         
+            $.ajax({
+               url:'order/update/item',
+               type:'POST',
+               data:{
+                   'id':id,
+                   'orderId':orderId,
+                   'productDescription': $('#'+id+'_'+'productDescription').val(),
+                   'weight': $('#'+id+'_'+'weight').val(),
+                   'cusCharge': $('#'+id+'_'+'cusCharge').val(),
+                   'perKg': $('#'+id+'_'+'perKg').val(),
+                   'charge': $('#'+id+'_'+'charge').val(),
+                   'homeDeliveryCharge': $('#'+id+'_'+'homeDeliveryCharge').val(),
+                   'total': $('#'+id+'_'+'total').val()
+               },
+               success:function(data) {
+                 if(data.status=='success'){
+                     $('#sum').val(data.sum);
+                 }else{
+                     swal('Warning !',data,'warning');
+                 }
+               },
+               error:function(data) {
+                 swal('Error','Something went wrong','error');
+                 console.log(data.responseText);
+               }
+            });
+         });
+         
+         $('.pp').bind('keyup mouseup', function () {
+            var id = $(this).attr('data-id');
+            var result = parseInt($('.'+id+'_'+'cusCharge').val()) + parseInt($('.'+id+'_'+'charge').val())+ parseInt($('.'+id+'_'+'homeDeliveryCharge').val()) + (parseInt($('.'+id+'_'+'weight').val()) * parseInt($('.'+id+'_'+'perKg').val()));
+            $('.'+id+'_'+'total').val(result);
+
         });
          </script>
         ";
@@ -178,7 +225,7 @@ class OrderController extends Controller
 
                 $customerId = $customer->id;
             } else {
-                if (!Customer::where('name', $request->cName)->where('date_of_birth', $request->cDateOfBirth)->exists()) {
+                if (!Customer::where('name', $request->cName)->where('surname', $request->cSurname)->where('phone', $request->cPhone)->exists()) {
                     $customer = new Customer();
                     $customer->name = $request->cName;
                     $customer->surname = $request->cSurname;

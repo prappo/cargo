@@ -58,7 +58,7 @@
 
                                         <div class="col-sm-8">
 
-                                            <select id="sName" class="form-control select2">
+                                            <select id="sDateOfBirth" class="form-control select2">
                                                 <option value="">Date of Birth</option>
 
                                                 @foreach(\App\Customer::where('userId',Auth::user()->id)->get() as $c)
@@ -953,7 +953,8 @@
 
                                             <th>Cus. charge</th>
                                             <th>Per Kg</th>
-                                            <th>Charge</th>
+                                            <th>Additional charge </th>
+                                            <th>Home Delivery charge </th>
                                             <th>Total</th>
                                             <th>Action</th>
                                         </tr>
@@ -969,6 +970,7 @@
                                                        style="background:yellow"
                                                        type="number"></td>
                                             <td><input value="0" id="charge" class="form-control" type="number"></td>
+                                            <td><input value="0" id="homeDeliveryCharge" class="form-control" type="number"></td>
                                             <td><input value="0" id="total" class="form-control"
                                                        style="background:green; font-weight: 700;color:white"
                                                        type="text"></td>
@@ -980,7 +982,7 @@
                                         </tr>
 
                                         <tr>
-                                            <td colspan="5"></td>
+                                            <td colspan="6"></td>
                                             <td><b>Total</b></td>
 
                                             <td><input id="sum" class="form-control" style="background: pink"
@@ -1052,6 +1054,7 @@
                     'cusCharge': $('#cusCharge').val(),
                     'perKg': $('#perKg').val(),
                     'charge': $('#charge').val(),
+                    'homeDeliveryCharge': $('#homeDeliveryCharge').val(),
                     'total': $('#total').val()
                 }, success: function (data) {
                     if (data.status == "success") {
@@ -1081,18 +1084,23 @@
 
         $("#cusCharge").bind('keyup mouseup', function () {
 
-            var result = parseInt($('#cusCharge').val()) + parseInt($('#charge').val()) + (parseInt($('#weight').val()) * parseInt($('#perKg').val()));
+            var result = parseInt($('#cusCharge').val()) + parseInt($('#charge').val())+ parseInt($('#homeDeliveryCharge').val()) + (parseInt($('#weight').val()) * parseInt($('#perKg').val()));
             $('#total').val(result);
 
         });
 
         $('#perKg').bind('keyup mouseup', function () {
-            var result = parseInt($('#cusCharge').val()) + parseInt($('#charge').val()) + (parseInt($('#weight').val()) * parseInt($('#perKg').val()));
+            var result = parseInt($('#cusCharge').val()) + parseInt($('#charge').val())+ parseInt($('#homeDeliveryCharge').val()) + (parseInt($('#weight').val()) * parseInt($('#perKg').val()));
             $('#total').val(result);
 
         });
         $('#charge').bind('keyup mouseup', function () {
-            var result = parseInt($('#cusCharge').val()) + parseInt($('#charge').val()) + (parseInt($('#weight').val()) * parseInt($('#perKg').val()));
+            var result = parseInt($('#cusCharge').val()) + parseInt($('#charge').val())+ parseInt($('#homeDeliveryCharge').val()) + (parseInt($('#weight').val()) * parseInt($('#perKg').val()));
+            $('#total').val(result);
+        });
+
+        $('#homeDeliveryCharge').bind('keyup mouseup', function () {
+            var result = parseInt($('#cusCharge').val()) + parseInt($('#charge').val())+ parseInt($('#homeDeliveryCharge').val()) + (parseInt($('#weight').val()) * parseInt($('#perKg').val()));
             $('#total').val(result);
         });
 
@@ -1145,6 +1153,84 @@
             })
         });
         $('#sName').on('change', function () {
+            var id = $(this).val();
+            $.ajax({
+                url: "{{url('/customer/get/info')}}",
+                type: 'POST',
+                data: {
+                    'id': id
+                },
+                success: function (data) {
+                    if (data.status == "success") {
+                        $('#customerId').val(id);
+                        $('#cName').val(data.name);
+                        $('#cSurname').val(data.surname);
+                        $('#cPhone').val(data.phone);
+                        $('#cCity').val(data.city);
+                        $('#cCountry').val(data.country);
+                        $('#cAddress').val(data.address);
+                        $('#cCap').val(data.cap);
+                    }
+                }, error: function (data) {
+                    console.log(data.responseText);
+                }
+
+            });
+            $.ajax({
+                type: 'POST',
+                url: '{{url('/receivers/get')}}',
+                data: {
+                    'customerId': id
+                },
+                success: function (data) {
+                    $('#receiverInfoDiv').html(data);
+                },
+                error: function (data) {
+                    swal("Error", "Something went wrong", "error");
+                    console.log(data.responseText);
+                }
+            });
+        });
+        $('#sSurname').on('change', function () {
+            var id = $(this).val();
+            $.ajax({
+                url: "{{url('/customer/get/info')}}",
+                type: 'POST',
+                data: {
+                    'id': id
+                },
+                success: function (data) {
+                    if (data.status == "success") {
+                        $('#customerId').val(id);
+                        $('#cName').val(data.name);
+                        $('#cSurname').val(data.surname);
+                        $('#cPhone').val(data.phone);
+                        $('#cCity').val(data.city);
+                        $('#cCountry').val(data.country);
+                        $('#cAddress').val(data.address);
+                        $('#cCap').val(data.cap);
+                    }
+                }, error: function (data) {
+                    console.log(data.responseText);
+                }
+
+            });
+            $.ajax({
+                type: 'POST',
+                url: '{{url('/receivers/get')}}',
+                data: {
+                    'customerId': id
+                },
+                success: function (data) {
+                    $('#receiverInfoDiv').html(data);
+                },
+                error: function (data) {
+                    swal("Error", "Something went wrong", "error");
+                    console.log(data.responseText);
+                }
+            });
+        });
+        $('#sDateOfBirth').on('change', function () {
             var id = $(this).val();
             $.ajax({
                 url: "{{url('/customer/get/info')}}",

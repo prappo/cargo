@@ -74,6 +74,14 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('/receivers/get', 'CustomerController@getReceivers');
         Route::post('/receiver/get/info', 'CustomerController@getReceiverInfo');
 
+        // Bank
+
+        Route::get('/bank/account/add', 'BankController@index');
+        Route::post('/bank/account/add', 'BankController@addAccount');
+        Route::get('/bank/accounts/list', 'BankController@accountsList');
+        Route::post('/bank/account/delete', 'BankController@deleteAccount');
+        Route::post('/bank/account/get','BankController@getAccounts');
+
 
     });
 
