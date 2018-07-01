@@ -126,6 +126,9 @@
 
 
             @if(Auth::user()->type == "agent")
+                <li @if(Request::is('home')) class="active" @endif ><a href="{{ url('/home') }}"><i
+                                class="fa fa-home"></i>
+                        <span>Home</span></a></li>
                 <li @if(Request::is('order')) class="active" @endif ><a href="{{ url('/order') }}"><i
                                 class="fa fa-send-o"></i>
                         <span>Order</span></a></li>
@@ -137,7 +140,7 @@
 
                 <li @if(Request::is('report/invoice')) class="active" @endif ><a href="{{ url('/report/invoice') }}"><i
                                 class="fa fa-pie-chart"></i>
-                        <span>Invoice</span></a></li>
+                        <span>Agent Report</span></a></li>
 
                 <li @if(Request::is('balance/request')) class="active" @endif ><a
                             href="{{ url('/balance/request') }}"><i

@@ -13,12 +13,12 @@ class HomeController extends Controller
     public function index()
     {
         if (Auth::user()->type == "admin") {
-            $data = Order::all();
+            return view('home.admin');
         } elseif (Auth::user()->type == "reseller") {
-            $data = Order::where('ref', Auth::user()->id)->get();
+            return view('home.reseller');
         } else {
-            $data = Order::where('userId', Auth::user()->id)->get();
+            return view('home.agent');
         }
-        return view('invoice',compact('data'));
+
     }
 }
