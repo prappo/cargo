@@ -1042,6 +1042,16 @@
         var orderId = Math.floor(Math.random() * 9999) + 1000;
         $('#orderId').val(orderId);
 
+        function makeAllZero(){
+            $('#productDescription').val('');
+            $('#weight').val('');
+            $('#cusCharge').val('');
+            $('#perKg').val('');
+            $('#charge').val('');
+            $('#homeDeliveryCharge').val('');
+            $('#total').val('');
+        }
+
         $('#addItem').click(function () {
 
             $.ajax({
@@ -1060,6 +1070,9 @@
                     if (data.status == "success") {
                         $('#itemTable tr:last').before(data.result);
                         $('#sum').val(data.sum);
+                        makeAllZero();
+
+
                     } else {
                         swal("Warning !", data.message, "warning");
                     }

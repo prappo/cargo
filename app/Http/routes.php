@@ -51,6 +51,8 @@ Route::group(['middleware' => 'web'], function () {
 
         Route::post('/order/getjs', 'OrderController@getJs');
 
+        Route::post('/order/update/item', 'OrderController@updateItem');
+
         // Balance
 
         Route::get('/balance/add', 'BalanceController@addBalanceIndex');
@@ -80,7 +82,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('/bank/account/add', 'BankController@addAccount');
         Route::get('/bank/accounts/list', 'BankController@accountsList');
         Route::post('/bank/account/delete', 'BankController@deleteAccount');
-        Route::post('/bank/account/get','BankController@getAccounts');
+        Route::post('/bank/account/get', 'BankController@getAccounts');
 
 
     });

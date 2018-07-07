@@ -163,6 +163,36 @@ class OrderController extends Controller
         ";
     }
 
+
+    public function updateItem(Request $request)
+    {
+        try {
+
+            OrderDetails::where('orderId', $request->orderId)->update([
+                'product_description' => $request->productDescription,
+                'weight' => $request->weight,
+                'cus_charge' => $request->cusCharge,
+                'per_kg' => $request->perKg,
+                'charge' => $request->charge,
+                'home_delivery_charge' => $request->homeDeliveryCharge,
+                'total' => $request->total
+            ]);
+            $sum = OrderDetails::where('orderId', $request->orderId)->sum('total');
+
+            return response()->json([
+                'status' => 'success',
+                'sum' => $sum
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $exception->getMessage()
+            ]);
+        }
+
+    }
+
+
     public function order(Request $request)
     {
         try {
