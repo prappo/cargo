@@ -32,7 +32,7 @@ class OrderController extends Controller
             $item->cus_charge = $request->cusCharge;
             $item->per_kg = $request->perKg;
             $item->charge = $request->charge;
-            $item->charge = $request->home_delivery_charge;
+            $item->home_delivery_charge = $request->homeDeliveryCharge;
             $item->total = $request->total;
             $item->save();
 
@@ -49,7 +49,7 @@ class OrderController extends Controller
         <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_perKg" type="number" value="' . $request->perKg . '" style="background:yellow"></td>
         <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_charge" type="number" value="' . $request->charge . '"></td>
         <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_homeDeliveryCharge" type="number" value="' . $request->homeDeliveryCharge . '"></td>
-        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_total" type="number" value="' . $request->total . '" style="background:green;color:white;font-weight:700"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_total" disabled type="number" value="' . $request->total . '" style="background:green;color:white;font-weight:700"></td>
         <td>
         <div class="btn-group">
         <button order-id="' . $request->orderId . '" data-id="' . $id . '" class="btn btn-xs btn-primary btnUpdate"><i class="fa fa-save"></i> Update</button>

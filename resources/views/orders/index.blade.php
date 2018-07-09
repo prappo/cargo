@@ -971,7 +971,7 @@
                                                        type="number"></td>
                                             <td><input value="0" id="charge" class="form-control" type="number"></td>
                                             <td><input value="0" id="homeDeliveryCharge" class="form-control" type="number"></td>
-                                            <td><input value="0" id="total" class="form-control"
+                                            <td><input disabled value="0" id="total" class="form-control"
                                                        style="background:green; font-weight: 700;color:white"
                                                        type="text"></td>
                                             <td>
