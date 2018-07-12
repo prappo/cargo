@@ -47,6 +47,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/order', 'OrderController@index');
         Route::post('/order', 'OrderController@order');
         Route::post('/order/add/item', 'OrderController@addItem');
+        Route::post('/add/multiple/item', 'OrderController@addMultipleItem');
         Route::post('/order/delete/item', 'OrderController@deleteItem');
 
         Route::post('/order/getjs', 'OrderController@getJs');
@@ -75,6 +76,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('/customer/get/info', 'CustomerController@getCustomerInfo');
         Route::post('/receivers/get', 'CustomerController@getReceivers');
         Route::post('/receiver/get/info', 'CustomerController@getReceiverInfo');
+        Route::post('/customer/search', 'CustomerController@search');
 
         // Bank
 
@@ -83,6 +85,9 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/bank/accounts/list', 'BankController@accountsList');
         Route::post('/bank/account/delete', 'BankController@deleteAccount');
         Route::post('/bank/account/get', 'BankController@getAccounts');
+
+        // test route
+        Route::get('/prappo', 'Prappo@index');
 
 
     });

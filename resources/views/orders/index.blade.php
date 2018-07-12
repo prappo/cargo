@@ -19,59 +19,31 @@
                                 <h3 class="box-title"><i class="fa fa-search"></i> Search Existing Customer</h3>
                             </div>
                             <div class="box-body">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="sName" class="col-sm-4 control-label"> First Name</label>
-
-                                        <div class="col-sm-8">
-
-                                            <select id="sName" class="form-control select2">
-                                                <option value="">Type Customer Name</option>
-
-                                                @foreach(\App\Customer::where('userId',Auth::user()->id)->get() as $c)
-                                                    <option value="{{$c->id}}">{{$c->name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
+                                <div class="col-md-5">
+                                    <label>Name</label>
+                                    <input type="text" id="sName" class="form-control" placeholder="Name">
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="sName" class="col-sm-4 control-label"> Surname</label>
+                                <div class="col-md-5">
+                                    <lable>Date of Birth</lable>
+                                    <input type="date" id="sDateOfBirth" class="form-control">
 
-                                        <div class="col-sm-8">
-
-                                            <select id="sSurname" class="form-control select2">
-                                                <option value="">Type Customer Surname</option>
-
-                                                @foreach(\App\Customer::where('userId',Auth::user()->id)->get() as $c)
-                                                    <option value="{{$c->id}}">{{$c->surname}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
                                 </div>
 
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="sDateOfBirth" class="col-sm-4 control-label"> Date of Birth</label>
-
-                                        <div class="col-sm-8">
-
-                                            <select id="sDateOfBirth" class="form-control select2">
-                                                <option value="">Date of Birth</option>
-
-                                                @foreach(\App\Customer::where('userId',Auth::user()->id)->get() as $c)
-                                                    <option value="{{$c->id}}">{{$c->date_of_birth}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
+                                <div class="col-md-2">
+                                    <br>
+                                    <button id="search" class="btn btn-success btn-block"><i class="fa fa-search"></i>
+                                        Search
+                                    </button>
                                 </div>
+
+
                             </div>
 
                             <div class="box-footer">
                                 <div class="col-md-6">
+                                    <div class="row">
+                                        <div id="sResult"></div>
+                                    </div>
 
                                     <div class="form-group">
 
@@ -892,6 +864,24 @@
                                             </div>
 
 
+                                            <div class="form-group">
+                                                <label for="delivery_condition" class="col-sm-4 control-label">Number of
+                                                    Box
+                                                </label>
+
+                                                <div class="col-sm-8">
+                                                    <select id="numberOfBox" class="form-control">
+                                                        <option>1</option>
+                                                        <option>2</option>
+                                                        <option>3</option>
+                                                        <option>4</option>
+                                                        <option>5</option>
+                                                        <option>6</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -953,8 +943,8 @@
 
                                             <th>Cus. charge</th>
                                             <th>Per Kg</th>
-                                            <th>Additional charge </th>
-                                            <th>Home Delivery charge </th>
+                                            <th>Additional charge</th>
+                                            <th>Home Delivery charge</th>
                                             <th>Total</th>
                                             <th>Action</th>
                                         </tr>
@@ -970,7 +960,8 @@
                                                        style="background:yellow"
                                                        type="number"></td>
                                             <td><input value="0" id="charge" class="form-control" type="number"></td>
-                                            <td><input value="0" id="homeDeliveryCharge" class="form-control" type="number"></td>
+                                            <td><input value="0" id="homeDeliveryCharge" class="form-control"
+                                                       type="number"></td>
                                             <td><input disabled value="0" id="total" class="form-control"
                                                        style="background:green; font-weight: 700;color:white"
                                                        type="text"></td>
@@ -1042,7 +1033,7 @@
         var orderId = Math.floor(Math.random() * 9999) + 1000;
         $('#orderId').val(orderId);
 
-        function makeAllZero(){
+        function makeAllZero() {
             $('#productDescription').val('');
             $('#weight').val('');
             $('#cusCharge').val('');
@@ -1058,6 +1049,7 @@
                 url: '{{url('/order/add/item')}}',
                 type: 'POST',
                 data: {
+
                     'orderId': $('#orderId').val(),
                     'productDescription': $('#productDescription').val(),
                     'weight': $('#weight').val(),
@@ -1097,23 +1089,23 @@
 
         $("#cusCharge").bind('keyup mouseup', function () {
 
-            var result = parseInt($('#cusCharge').val()) + parseInt($('#charge').val())+ parseInt($('#homeDeliveryCharge').val()) + (parseInt($('#weight').val()) * parseInt($('#perKg').val()));
+            var result = parseInt($('#cusCharge').val()) + parseInt($('#charge').val()) + parseInt($('#homeDeliveryCharge').val()) + (parseInt($('#weight').val()) * parseInt($('#perKg').val()));
             $('#total').val(result);
 
         });
 
         $('#perKg').bind('keyup mouseup', function () {
-            var result = parseInt($('#cusCharge').val()) + parseInt($('#charge').val())+ parseInt($('#homeDeliveryCharge').val()) + (parseInt($('#weight').val()) * parseInt($('#perKg').val()));
+            var result = parseInt($('#cusCharge').val()) + parseInt($('#charge').val()) + parseInt($('#homeDeliveryCharge').val()) + (parseInt($('#weight').val()) * parseInt($('#perKg').val()));
             $('#total').val(result);
 
         });
         $('#charge').bind('keyup mouseup', function () {
-            var result = parseInt($('#cusCharge').val()) + parseInt($('#charge').val())+ parseInt($('#homeDeliveryCharge').val()) + (parseInt($('#weight').val()) * parseInt($('#perKg').val()));
+            var result = parseInt($('#cusCharge').val()) + parseInt($('#charge').val()) + parseInt($('#homeDeliveryCharge').val()) + (parseInt($('#weight').val()) * parseInt($('#perKg').val()));
             $('#total').val(result);
         });
 
         $('#homeDeliveryCharge').bind('keyup mouseup', function () {
-            var result = parseInt($('#cusCharge').val()) + parseInt($('#charge').val())+ parseInt($('#homeDeliveryCharge').val()) + (parseInt($('#weight').val()) * parseInt($('#perKg').val()));
+            var result = parseInt($('#cusCharge').val()) + parseInt($('#charge').val()) + parseInt($('#homeDeliveryCharge').val()) + (parseInt($('#weight').val()) * parseInt($('#perKg').val()));
             $('#total').val(result);
         });
 
@@ -1204,45 +1196,46 @@
                 }
             });
         });
-        $('#sSurname').on('change', function () {
-            var id = $(this).val();
-            $.ajax({
-                url: "{{url('/customer/get/info')}}",
-                type: 'POST',
-                data: {
-                    'id': id
-                },
-                success: function (data) {
-                    if (data.status == "success") {
-                        $('#customerId').val(id);
-                        $('#cName').val(data.name);
-                        $('#cSurname').val(data.surname);
-                        $('#cPhone').val(data.phone);
-                        $('#cCity').val(data.city);
-                        $('#cCountry').val(data.country);
-                        $('#cAddress').val(data.address);
-                        $('#cCap').val(data.cap);
-                    }
-                }, error: function (data) {
-                    console.log(data.responseText);
-                }
 
-            });
-            $.ajax({
-                type: 'POST',
-                url: '{{url('/receivers/get')}}',
-                data: {
-                    'customerId': id
-                },
-                success: function (data) {
-                    $('#receiverInfoDiv').html(data);
-                },
-                error: function (data) {
-                    swal("Error", "Something went wrong", "error");
-                    console.log(data.responseText);
-                }
-            });
-        });
+        {{--$('.btn-xs').click(function () {--}}
+            {{--var id = $(this).attr('data-id');--}}
+            {{--$.ajax({--}}
+                {{--url: "{{url('/customer/get/info')}}",--}}
+                {{--type: 'POST',--}}
+                {{--data: {--}}
+                    {{--'id': id--}}
+                {{--},--}}
+                {{--success: function (data) {--}}
+                    {{--if (data.status == "success") {--}}
+                        {{--$('#customerId').val(id);--}}
+                        {{--$('#cName').val(data.name);--}}
+                        {{--$('#cSurname').val(data.surname);--}}
+                        {{--$('#cPhone').val(data.phone);--}}
+                        {{--$('#cCity').val(data.city);--}}
+                        {{--$('#cCountry').val(data.country);--}}
+                        {{--$('#cAddress').val(data.address);--}}
+                        {{--$('#cCap').val(data.cap);--}}
+                    {{--}--}}
+                {{--}, error: function (data) {--}}
+                    {{--console.log(data.responseText);--}}
+                {{--}--}}
+
+            {{--});--}}
+            {{--$.ajax({--}}
+                {{--type: 'POST',--}}
+                {{--url: '{{url('/receivers/get')}}',--}}
+                {{--data: {--}}
+                    {{--'customerId': id--}}
+                {{--},--}}
+                {{--success: function (data) {--}}
+                    {{--$('#receiverInfoDiv').html(data);--}}
+                {{--},--}}
+                {{--error: function (data) {--}}
+                    {{--swal("Error", "Something went wrong", "error");--}}
+                    {{--console.log(data.responseText);--}}
+                {{--}--}}
+            {{--});--}}
+        {{--});--}}
         $('#sDateOfBirth').on('change', function () {
             var id = $(this).val();
             $.ajax({
@@ -1281,6 +1274,61 @@
                     console.log(data.responseText);
                 }
             });
+        });
+
+        $('#numberOfBox').on('change', function () {
+            var numberOfBox = $(this).val();
+
+            $.ajax({
+                type: 'POST',
+                url: '{{url('/add/multiple/item')}}',
+                data: {
+                    'numberOfBox': numberOfBox,
+                    'orderId': $('#orderId').val()
+                },
+                success: function (data) {
+                    if (data.status == "success") {
+                        $('#itemTable tr:last').before(data.result);
+                    } else {
+                        alert(data.message);
+                    }
+                },
+                error: function (data) {
+                    console.log(data.responseText);
+                }
+            });
+
+
+            $.ajax({
+                url: '{{url('/order/getjs')}}',
+                type: 'POST',
+                data: {},
+                success: function (data) {
+                    $('#getJs').html(data);
+                }
+            });
+
+            $(this).prop("disabled", true);
+        });
+
+        $('#search').click(function () {
+            var name = $('#sName').val();
+            var dateOfBirth = $('#sDateOfBirth').val();
+            $.ajax({
+                type: 'POST',
+                url: '{{url('/customer/search')}}',
+                data: {
+                    'name': name,
+                    'dateOfBirth': dateOfBirth
+                },
+                success: function (data) {
+                    $('#sResult').html(data);
+                },
+                error: function (data) {
+                    alert("Something went wrong");
+                    console.log(data.responseText);
+                }
+            })
         });
 
 

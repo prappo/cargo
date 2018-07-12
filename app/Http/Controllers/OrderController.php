@@ -22,6 +22,7 @@ class OrderController extends Controller
 
     public function addItem(Request $request)
     {
+
         try {
             $item = new OrderDetails();
             $item->userId = Auth::user()->id;
@@ -43,16 +44,16 @@ class OrderController extends Controller
 
             $result = '
         <tr id="' . $id . '">
-        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_productDescription" type="text" value="' . $request->productDescription . '"></td>
-        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_weight" type="number" value="' . $request->weight . '"></td>
-        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_cusCharge" type="number" value="' . $request->cusCharge . '"></td>
-        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_perKg" type="number" value="' . $request->perKg . '" style="background:yellow"></td>
-        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_charge" type="number" value="' . $request->charge . '"></td>
-        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_homeDeliveryCharge" type="number" value="' . $request->homeDeliveryCharge . '"></td>
-        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_total" disabled type="number" value="' . $request->total . '" style="background:green;color:white;font-weight:700"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_productDescription" id="' . $id . '_productDescription" type="text" value="' . $request->productDescription . '"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_weight" type="number" id="' . $id . '_weight" value="' . $request->weight . '"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_cusCharge" type="number" id="' . $id . '_cusCharge" value="' . $request->cusCharge . '"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_perKg" type="number" id="' . $id . '_perKg" value="' . $request->perKg . '" style="background:yellow"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_charge" type="number" id="' . $id . '_charge" value="' . $request->charge . '"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_homeDeliveryCharge" id="' . $id . '_homeDeliveryCharge" type="number" value="' . $request->homeDeliveryCharge . '"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_total" disabled type="number" id="' . $id . '_total" value="' . $request->total . '" style="background:green;color:white;font-weight:700"></td>
         <td>
         <div class="btn-group">
-        <button order-id="' . $request->orderId . '" data-id="' . $id . '" class="btn btn-xs btn-primary btnUpdate"><i class="fa fa-save"></i> Update</button>
+        
         <button order-id="' . $request->orderId . '" data-id="' . $id . '" class="btn btn-xs btn-danger"><i class="fa fa-times"></i> Delete</button>
         </div>
         </td>
@@ -73,6 +74,7 @@ class OrderController extends Controller
 
     }
 
+
     public function deleteItem(Request $request)
     {
         try {
@@ -86,6 +88,63 @@ class OrderController extends Controller
         } catch (\Exception $exception) {
             return response()->json([
                 'status' => 'error',
+                'message' => $exception->getMessage()
+            ]);
+        }
+    }
+
+    public function addMultipleItem(Request $request)
+    {
+        $result = "";
+        try {
+
+            for ($i = 0; $i < $request->numberOfBox; $i++) {
+
+
+                $item = new OrderDetails();
+                $item->userId = Auth::user()->id;
+                $item->orderId = $request->orderId;
+
+                $item->weight = 0;
+                $item->cus_status = "";
+                $item->cus_charge = 0;
+                $item->per_kg = 0;
+                $item->charge = 0;
+                $item->home_delivery_charge = 0;
+                $item->total = 0;
+                $item->save();
+
+                $id = $item->id;
+
+                $sum = OrderDetails::where('orderId', $request->orderId)->sum('total');
+
+
+                $result .= '
+        <tr id="' . $id . '">
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_productDescription" id="' . $id . '_productDescription" type="text" value="' . $request->productDescription . '"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_weight" type="number" id="' . $id . '_weight" value="' . $request->weight . '"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_cusCharge" type="number" id="' . $id . '_cusCharge" value="' . $request->cusCharge . '"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_perKg" type="number" id="' . $id . '_perKg" value="' . $request->perKg . '" style="background:yellow"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_charge" type="number" id="' . $id . '_charge" value="' . $request->charge . '"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_homeDeliveryCharge" id="' . $id . '_homeDeliveryCharge" type="number" value="' . $request->homeDeliveryCharge . '"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_total" disabled type="number" id="' . $id . '_total" value="' . $request->total . '" style="background:green;color:white;font-weight:700"></td>
+        <td>
+        <div class="btn-group">
+        
+        <button order-id="' . $request->orderId . '" data-id="' . $id . '" class="btn btn-xs btn-danger"><i class="fa fa-times"></i> Delete</button>
+        </div>
+        </td>
+        </tr>
+        ';
+            }
+
+            return response()->json([
+                'status' => 'success',
+                'result' => $result,
+                'sum' => $sum
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json([
                 'message' => $exception->getMessage()
             ]);
         }
@@ -157,6 +216,34 @@ class OrderController extends Controller
             var id = $(this).attr('data-id');
             var result = parseInt($('.'+id+'_'+'cusCharge').val()) + parseInt($('.'+id+'_'+'charge').val())+ parseInt($('.'+id+'_'+'homeDeliveryCharge').val()) + (parseInt($('.'+id+'_'+'weight').val()) * parseInt($('.'+id+'_'+'perKg').val()));
             $('.'+id+'_'+'total').val(result);
+            
+            
+             $.ajax({
+               url:'order/update/item',
+               type:'POST',
+               data:{
+                   'id':id,
+                   'orderId':orderId,
+                   'productDescription': $('#'+id+'_'+'productDescription').val(),
+                   'weight': $('#'+id+'_'+'weight').val(),
+                   'cusCharge': $('#'+id+'_'+'cusCharge').val(),
+                   'perKg': $('#'+id+'_'+'perKg').val(),
+                   'charge': $('#'+id+'_'+'charge').val(),
+                   'homeDeliveryCharge': $('#'+id+'_'+'homeDeliveryCharge').val(),
+                   'total': $('#'+id+'_'+'total').val()
+               },
+               success:function(data) {
+                 if(data.status=='success'){
+                     $('#sum').val(data.sum);
+                 }else{
+                     swal('Warning !',data,'warning');
+                 }
+               },
+               error:function(data) {
+                 swal('Error','Something went wrong','error');
+                 console.log(data.responseText);
+               }
+            });
 
         });
          </script>
@@ -168,7 +255,7 @@ class OrderController extends Controller
     {
         try {
 
-            OrderDetails::where('orderId', $request->orderId)->update([
+            OrderDetails::where('id', $request->id)->update([
                 'product_description' => $request->productDescription,
                 'weight' => $request->weight,
                 'cus_charge' => $request->cusCharge,
@@ -308,5 +395,11 @@ class OrderController extends Controller
         } catch (\Exception $exception) {
             return $exception->getMessage();
         }
+    }
+
+    public function search(Request $request)
+    {
+        $data = Customer::where('name', 'LIKE', '%' . $request->name . '%')->where('date_of_birth', 'LIKE', '%' . $request->date . '%')->get();
+        return view('template.search', compact('data'));
     }
 }

@@ -66,7 +66,8 @@ class CustomerController extends Controller
 
     }
 
-    public function getCustomerInfoByDate(Request $request){
+    public function getCustomerInfoByDate(Request $request)
+    {
         try {
             $customer = Customer::where('id', $request->id)->first();
 
@@ -150,5 +151,22 @@ class CustomerController extends Controller
 
             return $exception->getMessage();
         }
+    }
+
+    public function search(Request $request)
+    {
+        if($request->dateOfBirth != ""){
+            $data = Customer::where('name', 'LIKE', '%' . $request->name . '%')->where('date_of_birth', 'LIKE', $request->dateOfBirth)->get();
+        }else{
+            $data = Customer::where('name', 'LIKE', '%' . $request->name . '%')->get();
+        }
+
+        return view('template.search', compact('data'));
+
+    }
+
+    public function getSearchJs()
+    {
+
     }
 }
