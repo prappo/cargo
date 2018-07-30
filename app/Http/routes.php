@@ -38,6 +38,7 @@ Route::group(['middleware' => 'web'], function () {
         // Reporting
 
         Route::get('/report/agent/{id}', 'ReportController@showAgentReport');
+        Route::get('/report/my', 'ReportController@showAgentReportMe');
         Route::get('/report/agent', 'ReportController@agentList');
         Route::post('/report/agent', 'ReportController@showAgentReportByDate');
         Route::get('/report/outstanding', 'ReportController@outstanding');

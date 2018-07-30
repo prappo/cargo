@@ -46,6 +46,7 @@
                             </div>
                             <div class="col-md-3">
                                 <b>Balance : {{\App\Balance::where('userId',$id)->value('amount')}}</b>
+
                             </div>
 
 

@@ -140,7 +140,11 @@
 
                 <li @if(Request::is('report/invoice')) class="active" @endif ><a href="{{ url('/report/invoice') }}"><i
                                 class="fa fa-pie-chart"></i>
-                        <span>Agent Report</span></a></li>
+                        <span>Invoice Report</span></a></li>
+
+                <li @if(Request::is('report/my')) class="active" @endif ><a href="{{ url('/report/my') }}"><i
+                                class="fa fa-bar-chart"></i>
+                        <span>Agent Account Report</span></a></li>
 
                 <li @if(Request::is('balance/request')) class="active" @endif ><a
                             href="{{ url('/balance/request') }}"><i

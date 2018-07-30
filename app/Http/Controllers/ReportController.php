@@ -22,6 +22,18 @@ class ReportController extends Controller
         return view('reports.agentAccount', compact('data', 'id', 'debit', 'credit', 'from', 'to'));
     }
 
+
+    public function showAgentReportMe()
+    {
+        $id = Auth::user()->id;
+        $from = "";
+        $to = "";
+        $data = Order::where('userId', $id)->get();
+        $debit = dc::where('userId', $id)->sum('debit');
+        $credit = dc::where('userId', $id)->sum('credit');
+        return view('reports.agentAccount', compact('data', 'id', 'debit', 'credit', 'from', 'to'));
+    }
+
     public function showAgentReportByDate(Request $request)
     {
 
@@ -68,6 +80,6 @@ class ReportController extends Controller
         }
         $total = 0;
 
-        return view('reports.outstanding', compact('data','total'));
+        return view('reports.outstanding', compact('data', 'total'));
     }
 }
