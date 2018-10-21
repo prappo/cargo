@@ -950,7 +950,7 @@
                                         </tr>
 
 
-                                        <tr>
+                                        <tr style="background: gray;display: none" id="addItemSection">
 
                                             <td><input id="productDescription" type="text" class="form-control"></td>
                                             <td><input value="0" id="weight" type="number" class="form-control"></td>
@@ -984,8 +984,11 @@
                                     <div class="row">
                                         <div class="col-md-9"></div>
                                         <div class="col-md-3">
+                                            <button class="btn btn-block btn-primary" id="btnViewAddItemSection"><i
+                                                        class="fa fa-plus"></i>Add new Item
+                                            </button>
                                             <button id="request" class="btn btn-block btn-success"><i
-                                                        class="fa fa-send"></i> <b>Request</b></button>
+                                                        class="fa fa-send"></i> <b>Send</b></button>
                                         </div>
                                     </div>
                                 </div>
@@ -1276,6 +1279,39 @@
             });
         });
 
+        $('#btnViewAddItemSection').click(function () {
+            var numberOfBox = 1;
+
+            $.ajax({
+                type: 'POST',
+                url: '{{url('/add/multiple/item')}}',
+                data: {
+                    'numberOfBox': numberOfBox,
+                    'orderId': $('#orderId').val()
+                },
+                success: function (data) {
+                    if (data.status == "success") {
+                        $('#itemTable tr:last').before(data.result);
+                    } else {
+                        alert(data.message);
+                    }
+                },
+                error: function (data) {
+                    console.log(data.responseText);
+                }
+            });
+
+
+            $.ajax({
+                url: '{{url('/order/getjs')}}',
+                type: 'POST',
+                data: {},
+                success: function (data) {
+                    $('#getJs').html(data);
+                }
+            });
+        });
+
         $('#numberOfBox').on('change', function () {
             var numberOfBox = $(this).val();
 
@@ -1330,6 +1366,13 @@
                 }
             })
         });
+
+        $('#cDateOfBirth').flatpickr();
+        $('#expected_date_to_receive').flatpickr();
+        $('#rDateOfBirth').flatpickr();
+        $('#sDateOfBirth').flatpickr();
+
+
 
 
     </script>

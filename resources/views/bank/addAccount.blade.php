@@ -51,8 +51,8 @@
                     <div class="box-footer">
 
                         <div class="col-md-6">
-                            <button id="save" class="btn btn-block btn-success"><i class="fa fa-save"></i> Update
-                                Save Account
+                            <button id="save" class="btn btn-block btn-success"><i class="fa fa-plus"></i>
+                                Add Account
                             </button>
                         </div>
                     </div>

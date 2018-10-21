@@ -121,13 +121,13 @@ class OrderController extends Controller
 
                 $result .= '
         <tr id="' . $id . '">
-        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_productDescription" id="' . $id . '_productDescription" type="text" value="' . $request->productDescription . '"></td>
-        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_weight" type="number" id="' . $id . '_weight" value="' . $request->weight . '"></td>
-        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_cusCharge" type="number" id="' . $id . '_cusCharge" value="' . $request->cusCharge . '"></td>
-        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_perKg" type="number" id="' . $id . '_perKg" value="' . $request->perKg . '" style="background:yellow"></td>
-        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_charge" type="number" id="' . $id . '_charge" value="' . $request->charge . '"></td>
-        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_homeDeliveryCharge" id="' . $id . '_homeDeliveryCharge" type="number" value="' . $request->homeDeliveryCharge . '"></td>
-        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_total" disabled type="number" id="' . $id . '_total" value="' . $request->total . '" style="background:green;color:white;font-weight:700"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_productDescription" id="' . $id . '_productDescription" type="text" value=""></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_weight" type="number" id="' . $id . '_weight" value="0"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_cusCharge" type="number" id="' . $id . '_cusCharge" value="0"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_perKg" type="number" id="' . $id . '_perKg" value="0" style="background:yellow"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_charge" type="number" id="' . $id . '_charge" value="0"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_homeDeliveryCharge" id="' . $id . '_homeDeliveryCharge" type="number" value="0"></td>
+        <td><input data-id="' . $id . '" class="form-control pp ' . $id . '_total" disabled type="number" id="' . $id . '_total" value="0" style="background:green;color:white;font-weight:700"></td>
         <td>
         <div class="btn-group">
         
