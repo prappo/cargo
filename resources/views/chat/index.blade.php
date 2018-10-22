@@ -50,7 +50,7 @@
                                     <!-- Message. Default to the left -->
                                         <div class="direct-chat-msg">
                                             <div class="direct-chat-info clearfix">
-                                                <span class="direct-chat-name pull-left">{{\App\User::where('id',$d->to)->value('name')}}</span>
+                                                <span class="direct-chat-name pull-left">{{\App\User::where('id',$id)->value('name')}}</span>
                                                 <span class="direct-chat-timestamp pull-right">{{\Carbon\Carbon::parse($d->created_at)->toDateTimeString()}}</span>
                                             </div>
                                             <!-- /.direct-chat-info -->
