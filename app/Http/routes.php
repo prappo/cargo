@@ -87,6 +87,14 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('/bank/account/delete', 'BankController@deleteAccount');
         Route::post('/bank/account/get', 'BankController@getAccounts');
 
+        // chat
+
+        Route::get('/chat','ChatController@index');
+        Route::get('/chat/list','ChatController@userList');
+        Route::get('/chat/{nodeId}/{to}','ChatController@getSingle');
+        Route::post('/chat/insert','ChatController@insert');
+        Route::post('/chat/get','ChatController@get');
+
         // test route
         Route::get('/prappo', 'Prappo@index');
 

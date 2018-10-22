@@ -110,14 +110,14 @@
                     <ul class="treeview-menu @if(Request::is('bank/account/add') || Request::is('bank/accounts/show')) menu-open @endif"
                         style="display: @if(Request::is('bank/account/add') || Request::is('bank/accounts/show')) block @else none @endif">
 
-                        <li @if(Request::is('bank/account/add')) class="active" @endif><a href="{{ url('/bank/account/add') }}"><i
+                        <li @if(Request::is('bank/account/add')) class="active" @endif><a
+                                    href="{{ url('/bank/account/add') }}"><i
                                         class="fa fa-plus-circle"></i>
                                 <span> Add Account</span></a></li>
-                        <li @if(Request::is('bank/accounts/list')) class="active" @endif><a href="{{ url('/bank/accounts/list') }}"><i
+                        <li @if(Request::is('bank/accounts/list')) class="active" @endif><a
+                                    href="{{ url('/bank/accounts/list') }}"><i
                                         class="fa fa-list"></i>
                                 <span> Accounts List</span></a></li>
-
-
 
 
                     </ul>
@@ -152,6 +152,12 @@
                         <span>Balance Request</span></a></li>
             @endif
 
+            @if(Auth::user()->type == "admin" || Auth::user()->type == "reseller")
+                <li @if(Request::is('chat/list')) class="active" @endif ><a href="{{ url('/chat/list') }}"><i
+                                class="fa fa-envelope"></i>
+                        <span>Chat</span></a></li>
+            @endif
+
 
             @if(Auth::user()->type == "admin")
                 <li @if(Request::is('settings')) class="active" @endif ><a href="{{ url('/settings') }}"><i
@@ -159,6 +165,7 @@
                         <span>Settings</span></a></li>
 
             @endif
+
 
             <li @if(Request::is('profile')) class="active" @endif ><a href="{{ url('/profile') }}"><i
                             class="fa fa-user"></i>
