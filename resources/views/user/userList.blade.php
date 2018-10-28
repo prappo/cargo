@@ -66,6 +66,7 @@
             </section>{{--End content--}}
         </div>{{--End content-wrapper--}}
         @include('components.footer')
+
     </div>{{--End wrapper--}}
 @endsection
 
@@ -100,6 +101,10 @@
             }
 
         });
+
+
     </script>
 
 @endsection
+
+

@@ -46,7 +46,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
 
 
     {{--emoji --}}
@@ -54,22 +54,65 @@
     <link rel="stylesheet" href="{{url('/css/style.css')}}">
     <link rel="stylesheet" href="{{url('/css/custome.css')}}">
     <style>
-        li>a{
+        li > a {
             font-size: 18px;
             font-weight: 600;
         }
+
+        .float {
+            position: fixed;
+            width: 360px;
+            height: 360px;
+            bottom: 100px;
+            right: 10px;
+            /*background-color: #0C9;*/
+            /*color: #FFF;*/
+            /*border-radius: 50px;*/
+            /*text-align: center;*/
+            /*box-shadow: 2px 2px 3px #999;*/
+            border: none;
+            z-index: 100;
+        }
+
+
+        .btnFloat {
+            position:fixed;
+            width:60px;
+            height:60px;
+            bottom:40px;
+            right:40px;
+            background-color:#0C9;
+            color:#FFF;
+            border-radius:50px;
+            text-align:center;
+            box-shadow: 2px 2px 3px #999;
+
+        }
+        .my-float {
+            margin-top: 22px;
+        }
+
+
     </style>
     @yield('css')
 </head>
 {{--<body class="hold-transition fixed sidebar-mini skin-red-light">--}}
-<body class="hold-transition fixed sidebar-mini skin-blue">
+<body style="background: #ECF0F5" class="hold-transition fixed sidebar-mini skin-blue">
 
 @yield('content')
+
+
+
+{{--<a href="#" class="float">--}}
+{{--<i class="fa fa-plus my-float"></i>--}}
+{{--</a>--}}
 <script>
     function appPath() {
         return "{{url('/')}}";
     }
 </script>
+
+
 
 <script src="{{ url(elixir('js/app.js')) }}"></script>
 <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
@@ -118,8 +161,6 @@
     });
 
 
-
-
     $('.lang').click(function () {
         var lang = $(this).attr('data-id');
         $.ajax({
@@ -141,7 +182,13 @@
             }
         });
         alert("Changing language");
-    })
+    });
+    $('#btnFloat').click(function () {
+        $('.float').toggle(200);
+    });
+
+    $('.float').hide();
+
 </script>
 @yield('js')
 <script>

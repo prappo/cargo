@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Chat;
 use App\ChatNode;
+use App\ChatNotify;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -27,10 +28,11 @@ class ChatController extends Controller
         try {
 
             $chat = new Chat();
-            $chat->to = $request->to;
+            $chat->to = $request->tot;
             $chat->from = $request->from;
             $chat->message = $request->message;
-            $chat->node = self::createNode($request->from, $request->to);
+            $chat->node = self::createNode($request->from, $request->tot);
+            $chat->read = "no";
             $chat->save();
             return "success";
         } catch (\Exception $exception) {
@@ -70,11 +72,45 @@ class ChatController extends Controller
         return view('chat.message', compact('data', 'id'));
     }
 
-    public function getSingle($nodeId,$to)
+    public function getSingle($nodeId, $to)
     {
         $data = Chat::where('node', $nodeId)->get();
         $id = $to;
         return view('chat.index', compact('data', 'id'));
+    }
+
+    public static function seen($msgId)
+    {
+        Chat::where('id', $msgId)->update([
+            'read' => 'yes'
+        ]);
+    }
+
+    public static function notify($count, $node)
+    {
+
+        if (ChatNotify::where('userId', Auth::user()->id)->where('node', $node)->exists()) {
+            ChatNotify::where('userId', Auth::user()->id)->where('node', $node)->update([
+                'count' => $count
+            ]);
+
+        } else {
+
+
+            $notify = new ChatNotify();
+            $notify->userId = Auth::user()->id;
+            $notify->count = $count;
+            $notify->node = $node;
+            $notify->save();
+
+
+        }
+
+        if ($count > 0) {
+            return $count;
+        }
+
+
     }
 }
 

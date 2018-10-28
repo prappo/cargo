@@ -42,6 +42,20 @@
     <link rel="stylesheet" href="{{url('/opt/emoji/emojionearea.min.css')}}">
 
     @yield('css')
+    <style>
+        body{
+            /* The image used */
+            background-image: url("{{url('/images/italy.jpg')}}");
+
+            /* Full height */
+            height: 100%;
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
 </head>
 <body class="hold-transition sidebar-mini skin-red-light">
 

@@ -78,7 +78,7 @@
 
             </section>{{--End content--}}
         </div>{{--End content-wrapper--}}
-        @include('components.footer')
+        @include('components.footer')z
     </div>{{--End wrapper--}}
 @endsection
 

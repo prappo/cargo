@@ -152,11 +152,7 @@
                         <span>Balance Request</span></a></li>
             @endif
 
-            @if(Auth::user()->type == "admin" || Auth::user()->type == "reseller")
-                <li @if(Request::is('chat/list')) class="active" @endif ><a href="{{ url('/chat/list') }}"><i
-                                class="fa fa-envelope"></i>
-                        <span>Chat</span></a></li>
-            @endif
+
 
 
             @if(Auth::user()->type == "admin")
