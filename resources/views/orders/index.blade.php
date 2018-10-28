@@ -175,7 +175,7 @@
                                                 <option value="Azerbaijan">Azerbaijan</option>
                                                 <option value="Bahamas">Bahamas</option>
                                                 <option value="Bahrain">Bahrain</option>
-                                                <option selected value="Bangladesh">Bangladesh</option>
+                                                <option value="Bangladesh">Bangladesh</option>
                                                 <option value="Barbados">Barbados</option>
                                                 <option value="Belarus">Belarus</option>
                                                 <option value="Belgium">Belgium</option>
@@ -276,7 +276,7 @@
                                                 <option value="Iraq">Iraq</option>
                                                 <option value="Ireland">Ireland</option>
                                                 <option value="Israel">Israel</option>
-                                                <option value="Italy">Italy</option>
+                                                <option selected value="Italy">Italy</option>
                                                 <option value="Jamaica">Jamaica</option>
                                                 <option value="Japan">Japan</option>
                                                 <option value="Jordan">Jordan</option>

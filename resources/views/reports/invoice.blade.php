@@ -72,6 +72,9 @@
                                 Last Name (Cognome):
                                 <strong>{{\App\Order::where('orderId',$id)->value('customer_surname')}}</strong><br>
                                 Address : {{\App\Order::where('orderId',$id)->value('customer_address')}}<br>
+                                Cap
+                                : {{\App\Customer::where('name',\App\Order::where('orderId',$id)->value('customer_name'))->value('cap')}}
+                                <br>
                                 City : {{\App\Order::where('orderId',$id)->value('customer_city')}}<br>
                                 Country : {{\App\Order::where('orderId',$id)->value('customer_country')}}<br>
                                 Phone : {{\App\Order::where('orderId',$id)->value('customer_phone')}}<br>
@@ -83,12 +86,14 @@
                             Receiver Information
                             <hr>
                             <address>
-                                First Name :
+                                First Name (Nome):
                                 <strong>{{\App\Order::where('orderId',$id)->value('receiver_name')}}</strong><br>
-                                Last Name :
+                                Last Name (Cognome):
                                 <strong>{{\App\Order::where('orderId',$id)->value('receiver_surname')}}</strong><br>
                                 Address : {{\App\Order::where('orderId',$id)->value('receiver_address')}}<br>
-                                City : {{\App\Order::where('orderId',$id)->value('receiver_city')}}<br>
+                                Cap
+                                : {{\App\ReceiverInfo::where('name',\App\Order::where('orderId',$id)->value('receiver_name'))->value('cap')}}
+                                <br>
                                 Country : {{\App\Order::where('orderId',$id)->value('receiver_country')}}<br>
                                 Phone : {{\App\Order::where('orderId',$id)->value('phone')}}<br>
                             </address>
@@ -144,14 +149,16 @@
                                     <td></td>
 
                                     <td>
-                                        <b class="pull-left">Total KG: <b>{{\App\OrderDetails::where('orderId',$id)->sum('weight')}} kg</b></b>
+                                        <b class="pull-left">Total KG:
+                                            <b>{{\App\OrderDetails::where('orderId',$id)->sum('weight')}} kg</b></b>
                                     </td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
 
                                     <td>
-                                        <b class="pull-left">Total : <b>{{\App\OrderDetails::where('orderId',$id)->sum('total')}} €</b></b>
+                                        <b class="pull-left">Total :
+                                            <b>{{\App\OrderDetails::where('orderId',$id)->sum('total')}} €</b></b>
                                     </td>
 
                                 </tr>
@@ -234,6 +241,12 @@
                                 <legend>PROHIBITED GOODS</legend>
                                 <img style="width: 100%" src="{{url('/images/prohibited_goods.png')}}">
                             </fieldset>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <br>
+                        <div class="col-md-12">
+                            *Questa Ricevuta non valido ai fini fiscale
                         </div>
                     </div>
                     <!-- /.row -->
