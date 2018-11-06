@@ -5,7 +5,7 @@
     <strong>Developed by </strong><a href="http://prappo.github.io" target="_blank">Prappo</a>
 </footer>
 
-<iframe class="float" style="overflow: hidden" src="http://localhost:8000/chat/list" width="300"
+<iframe class="float" style="overflow: hidden" src="{{url('/chat/list')}}" width="300"
         height="370" frameBorder="0">Browser not compatible.
 </iframe>
 @if(\App\ChatNotify::where('userId',Auth::user()->id)->sum('count') > 0)
